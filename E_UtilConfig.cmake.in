@@ -1,0 +1,8 @@
+# - Configuration file for the E_Util library
+# It defines the target "E_Util".
+#
+
+@PACKAGE_INIT@
+
+# Import the exported targets
+include("@PACKAGE_CMAKE_INSTALL_CMAKECONFIGDIR@/E_UtilTargets.cmake")
