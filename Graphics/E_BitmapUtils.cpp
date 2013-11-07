@@ -27,7 +27,7 @@ void init(EScript::Namespace & lib) {
 	//! BitmapUtil.convertBitmap(Bitmap source,PixelFormat format)
 	ES_FUN(&lib,"convertBitmap",2,2,
 			EScript::create(BitmapUtils::convertBitmap(
-				parameter[0].to<Bitmap*>(rt),
+				parameter[0].to<Bitmap &>(rt),
 				parameter[1].to<const PixelFormat&>(rt))))
 
 	//! void BitmapUtil._mulScalar(Bitmap source,value)
