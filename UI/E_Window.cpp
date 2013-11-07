@@ -126,7 +126,7 @@ void E_Window::init(EScript::Namespace & lib) {
 
 	//! [ESMF] thisObj Window.setIcon(String imagePath)
 	ES_MFUN(typeObject, E_Window, "setIcon", 1, 1, 
-				 ((**thisObj)->setIcon(Util::Serialization::loadBitmap(Util::FileName(parameter[0].toString()))), thisObj))
+				 ((**thisObj)->setIcon(*Util::Serialization::loadBitmap(Util::FileName(parameter[0].toString()))), thisObj))
 }
 
 E_Window::E_Window(const Util::UI::Window::Properties & properties) :
