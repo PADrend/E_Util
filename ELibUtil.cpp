@@ -132,10 +132,10 @@ void init(EScript::Namespace * globals) {
 
 	//! [ESF] Bitmap Util.loadBitmap(String)
 	ES_FUN(lib, "loadBitmap", 1, 1,
-		new E_Bitmap(Util::Serialization::loadBitmap(Util::FileName(parameter[0].toString()))));
+		EScript::create(Util::Serialization::loadBitmap(Util::FileName(parameter[0].toString()))));
 	//! [ESF] Void Util.saveBitmap(Bitmap, String)
 	ES_FUN(lib, "saveBitmap", 2, 2,
-		(Util::Serialization::saveBitmap(parameter[0].to<Util::Bitmap*>(rt), Util::FileName(parameter[1].toString())), EScript::create(nullptr)));
+		(Util::Serialization::saveBitmap(parameter[0].to<Util::Bitmap &>(rt), Util::FileName(parameter[1].toString())), EScript::create(nullptr)));
 
 
 	//! [ESF]
