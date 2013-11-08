@@ -55,7 +55,8 @@ void E_Bitmap::init(EScript::Namespace & lib) {
 
 //---
 
-E_Bitmap::E_Bitmap(Util::Bitmap * bitmap) : ReferenceObject_t(bitmap, typeObject) {
+E_Bitmap::E_Bitmap(Util::Reference<Util::Bitmap> bitmap) : 
+	ReferenceObject_t(typeObject, std::move(bitmap)) {
 }
 
 E_Bitmap::~E_Bitmap() {

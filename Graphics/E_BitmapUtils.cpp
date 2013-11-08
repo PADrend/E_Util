@@ -47,7 +47,7 @@ void init(EScript::Namespace & lib) {
 		for(auto & element : *arr) {
 			bitmaps.push_back(element.to<Bitmap*>(rt));
 		}
-		return E_Bitmap::create(BitmapUtils::blendTogether(parameter[0].to<const PixelFormat&>(rt), bitmaps));
+		return EScript::create(BitmapUtils::blendTogether(parameter[0].to<const PixelFormat&>(rt), bitmaps));
 	})
 
 	//! Bitmap BitmapUtil.combineInterleaved(PixelFormat,Array of Bitmaps)
@@ -57,7 +57,7 @@ void init(EScript::Namespace & lib) {
 		for(auto & element : *arr) {
 			bitmaps.push_back(element.to<Bitmap*>(rt));
 		}
-		return E_Bitmap::create(BitmapUtils::combineInterleaved(parameter[0].to<const PixelFormat&>(rt), bitmaps));
+		return EScript::create(BitmapUtils::combineInterleaved(parameter[0].to<const PixelFormat&>(rt), bitmaps));
 	})
 }
 
