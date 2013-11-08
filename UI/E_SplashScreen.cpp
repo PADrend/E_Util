@@ -43,7 +43,7 @@ void E_SplashScreen::init(EScript::Namespace & lib) {
 
 E_SplashScreen::E_SplashScreen(const std::string & title, const std::string & imagePath) :
 	ReferenceObject_t(E_SplashScreen::getTypeObject(), nullptr), bitmap(Util::Serialization::loadBitmap(Util::FileName(imagePath))) {
-	ref().reset(Util::UI::createSplashScreen(title, bitmap.get()));
+	ref() = std::move(Util::UI::createSplashScreen(title, bitmap.get()));
 }
 
 E_SplashScreen::~E_SplashScreen() = default;
