@@ -65,7 +65,7 @@ E_Bitmap::~E_Bitmap() {
 //!	---|> [Object]
 std::string E_Bitmap::toString() const {
 	std::stringstream s;
-	const Util::Bitmap * b = ref().get();
+	auto b = ref();
 	s << "Bitmap(width=" << b->getWidth() << ", height=" << b->getHeight() << ", bytes=" << b->getPixelFormat().getBytesPerPixel()<<")" ; // \todo add format<< ", reverse=" << b->getReverseBytes()
 //			<< ")";
 	return s.str();

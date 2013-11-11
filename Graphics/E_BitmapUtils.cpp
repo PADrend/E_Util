@@ -33,7 +33,7 @@ void init(EScript::Namespace & lib) {
 	//! void BitmapUtil._mulScalar(Bitmap source,value)
 	ES_FUNCTION2(&lib,"_mulScalar",2,2,{
 		const float factor = parameter[1].toFloat();
-		BitmapUtils::alterBitmap(	*parameter[0].to<Bitmap *>(rt), 
+		BitmapUtils::alterBitmap(	parameter[0].to<Bitmap &>(rt), 
 									[factor](const BitmapUtils::BitmapAlteringContext & ctxt) {
 										return ctxt.pixels->readColor4f(ctxt.x, ctxt.y) * factor; 
 									});
