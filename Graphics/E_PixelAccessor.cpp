@@ -38,7 +38,7 @@ void E_PixelAccessor::init(EScript::Namespace & lib) {
 
 	//! [ESF] (static) PixelAccessor|Void Util.PixelAccessor.create(Bitmap)
 	ES_FUNCTION2(typeObject,"create",1,1,{
-		Util::Reference<PixelAccessor> acc = Util::PixelAccessor::create( parameter[0].to<Bitmap*>(rt) );
+		Util::Reference<PixelAccessor> acc = Util::PixelAccessor::create( parameter[0].to<Reference<Bitmap>>(rt) );
 		if(acc!=nullptr)
 			return EScript::create(acc);
 		else

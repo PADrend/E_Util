@@ -45,7 +45,7 @@ void init(EScript::Namespace & lib) {
 		EScript::Array * arr = parameter[1].to<EScript::Array*>(rt);
 		std::vector<Util::Reference<Util::Bitmap>> bitmaps;
 		for(auto & element : *arr) {
-			bitmaps.push_back(element.to<Bitmap*>(rt));
+			bitmaps.push_back(element.to<Reference<Bitmap>>(rt));
 		}
 		return EScript::create(BitmapUtils::blendTogether(parameter[0].to<const PixelFormat&>(rt), bitmaps));
 	})
@@ -55,7 +55,7 @@ void init(EScript::Namespace & lib) {
 		EScript::Array * arr = parameter[1].to<EScript::Array*>(rt);
 		std::vector<Util::Reference<Util::Bitmap>> bitmaps;
 		for(auto & element : *arr) {
-			bitmaps.push_back(element.to<Bitmap*>(rt));
+			bitmaps.push_back(element.to<Reference<Bitmap>>(rt));
 		}
 		return EScript::create(BitmapUtils::combineInterleaved(parameter[0].to<const PixelFormat&>(rt), bitmaps));
 	})
