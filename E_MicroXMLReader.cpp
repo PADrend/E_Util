@@ -69,7 +69,7 @@ static bool visitorData(EScript::Runtime & rt, E_MicroXMLReader & reader, const 
 static bool visitorParse(EScript::Runtime & rt, E_MicroXMLReader & reader, const std::string & filename){
 	const Util::FileName fileName(filename);
 
-	std::unique_ptr<std::istream> in(Util::FileUtils::openForReading(fileName));
+	auto in = Util::FileUtils::openForReading(fileName);
 	if(!in) {
 		return false;
 	}
