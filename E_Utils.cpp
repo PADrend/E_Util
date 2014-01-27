@@ -201,7 +201,7 @@ Util::GenericAttribute * E_Utils::convertEScriptObjectToGenericAttribute(EScript
 			return result;
 		}
 	}
-
+	std::cout << "EScriptObject: "<<obj.toString()<<std::endl;
 	WARN("Unable to convert EScript object to GenericAttribute.");
 	return nullptr;
 }
