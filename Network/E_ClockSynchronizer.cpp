@@ -38,7 +38,7 @@ void E_ClockSynchronizer::init(EScript::Namespace & lib) {
 	//! [ESF] (static) ClockSynchronizer ClockSynchronizer.createClient(host, port)
 	ES_FUN(typeObject,"createClient",2,2,
 			new E_ClockSynchronizer( ClockSynchronizer::createClient(
-				Util::Network::IPAddress::resolveHost(   parameter[0].toString(),parameter[1].toInt()))))
+				Util::Network::IPv4Address::resolveHost(   parameter[0].toString(),parameter[1].toInt()))))
 
 	// ----
 

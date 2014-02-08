@@ -33,7 +33,7 @@ void E_UDPNetworkSocket::init(EScript::Namespace & lib) {
 
 	//! [ESMF] thisObj UDPNetworkSocket.addTarget(string hostname,number port)
 	ES_MFUN(typeObject,E_UDPNetworkSocket,"addTarget",2,2,
-				((**thisObj)->addTarget(Util::Network::IPAddress::resolveHost(
+				((**thisObj)->addTarget(Util::Network::IPv4Address::resolveHost(
 					parameter[0].toString(),parameter[1].toInt())),thisEObj))
 
 	//! [ESMF] thisObj UDPNetworkSocket.close()
@@ -63,7 +63,7 @@ void E_UDPNetworkSocket::init(EScript::Namespace & lib) {
 
 	//! [ESMF] thisObj UDPNetworkSocket.removeTarget(string hostname,number port[,channel=0])
 	ES_MFUN(typeObject,E_UDPNetworkSocket,"removeTarget",2,2,
-				((**thisObj)->removeTarget(Util::Network::IPAddress::resolveHost(parameter[0].toString(),parameter[1].toInt())),thisEObj))
+				((**thisObj)->removeTarget(Util::Network::IPv4Address::resolveHost(parameter[0].toString(),parameter[1].toInt())),thisEObj))
 
 	//! [ESMF] number UDPNetworkSocket.sendString(string s)
 	ES_MFUN(typeObject,E_UDPNetworkSocket,"sendString",1,1,

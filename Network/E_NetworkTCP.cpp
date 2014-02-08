@@ -33,7 +33,7 @@ void E_TCPConnection::init(EScript::Namespace & lib) {
 
 	//! [ESF] (static) TCPConnection|false TCPConnection.connect(host,port)
 	ES_FUNCTION2(typeObject,"connect",2,2,{
-		Util::Reference<TCPConnection> s=TCPConnection::connect(IPAddress::resolveHost(parameter[0].toString(), parameter[1].toInt()));
+		Util::Reference<TCPConnection> s=TCPConnection::connect(IPv4Address::resolveHost(parameter[0].toString(), parameter[1].toInt()));
 		if (s.isNull()) {
 			return Bool::create(false);
 		} else {
