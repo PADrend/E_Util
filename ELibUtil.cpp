@@ -10,7 +10,7 @@
 */
 #include "ELibUtil.h"
 #include <sstream>
-#include <EScript/Utils/DeprecatedMacros.h>
+
 #include <Util/Encoding.h>
 #include <Util/IO/FileName.h>
 #include <Util/IO/FileUtils.h>
@@ -60,7 +60,7 @@ void init(EScript::Namespace * globals) {
 	declareConstant(lib,"DIR_HIDDEN_FILES",Number::create(FileUtils::DIR_HIDDEN_FILES));
 
 	//! [ESF] false|Array Util.dir(path, [flags=Util.DIR_FILES] );
-	ES_FUNCTION2(lib, "dir", 1, 2, {
+	ES_FUNCTION(lib, "dir", 1, 2, {
 		std::list<FileName> entries;
 		bool b = FileUtils::dir(FileName::createDirName(parameter[0].toString()), entries, static_cast<uint8_t>(parameter[1].toInt(FileUtils::DIR_FILES)));
 		if(!b) {
@@ -96,7 +96,7 @@ void init(EScript::Namespace * globals) {
 	ES_FUN(lib,"isDir",1,1,Bool::create(FileUtils::isDir(FileName::createDirName(parameter[0].toString()))))
 
 	//! [ESF] string|false Util.loadFile( path );
-	ES_FUNCTION2(lib, "loadFile", 1, 1, {
+	ES_FUNCTION(lib, "loadFile", 1, 1, {
 		const std::string fileContents = FileUtils::getFileContents(FileName(parameter[0].toString()));
 		if(fileContents.empty()) {
 			return Bool::create(false);
@@ -105,7 +105,7 @@ void init(EScript::Namespace * globals) {
 	})
 
 	//! [ESF] bool Util.saveFile( path , string [,bool overwrite=true] );
-	ES_FUNCTION2(lib, "saveFile", 2, 3, {
+	ES_FUNCTION(lib, "saveFile", 2, 3, {
 		const std::string fileContents = parameter[1].toString();
 		return Bool::create(FileUtils::saveFile(
 				FileName(parameter[0].toString()),
@@ -123,7 +123,7 @@ void init(EScript::Namespace * globals) {
 	ES_FUN(lib,"enableInfo",0,0,(Util::enableInfo(),EScript::create(nullptr)))
 
 	//! [ESF] void info( infoOutput* )
-	ES_FUNCTION2(lib,"info",0,-1,{
+	ES_FUNCTION(lib,"info",0,-1,{
 		for(size_t i=0;i<parameter.count();++i){
 			Util::info<<parameter[i].toString();
 		}
@@ -163,12 +163,12 @@ void init(EScript::Namespace * globals) {
 	ES_FUN(lib, "sleep", 1, 1, (Util::Utils::sleep(parameter[0].to<uint32_t>(rt)),EScript::create(nullptr)))
 
 	//! [ESF] string Util.encodeString_base64(string)
-	ES_FUNCTION2(lib, "encodeString_base64", 1, 1, {
+	ES_FUNCTION(lib, "encodeString_base64", 1, 1, {
 		const std::string s = parameter[0].toString();
 		return Util::encodeBase64(std::vector<uint8_t>(s.begin(), s.end()));
 	})
 	//! [ESF] string Util.decodeString_base64(string)
-	ES_FUNCTION2(lib, "decodeString_base64", 1, 1, {
+	ES_FUNCTION(lib, "decodeString_base64", 1, 1, {
 		const std::vector<uint8_t> data = Util::decodeBase64( parameter[0].toString() );
 		return std::string(data.begin(), data.end());
 	})

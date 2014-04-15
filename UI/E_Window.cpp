@@ -7,7 +7,7 @@
 	file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 */
 #include "E_Window.h"
-#include <EScript/Utils/DeprecatedMacros.h>
+
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 #include <Util/Graphics/Bitmap.h>
@@ -44,7 +44,7 @@ void E_Window::init(EScript::Namespace & lib) {
 
 		
 	//!(static) [ESM] ExtObject Window.createPropertyObject()
-	ES_FUNCTION2(typeObject, "createPropertyObject", 0, 0, {
+	ES_FUNCTION(typeObject, "createPropertyObject", 0, 0, {
 		EScript::ERef<EScript::ExtObject> eProperties = EScript::ExtObject::create();
 		const Util::UI::Window::Properties properties; // for default values
 		

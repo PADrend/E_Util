@@ -11,7 +11,7 @@
 #include "E_NetworkTCP.h"
 
 #include <EScript/EScript.h>
-#include <EScript/Utils/DeprecatedMacros.h>
+
 
 using namespace EScript;
 using namespace Util::Network;
@@ -32,7 +32,7 @@ void E_TCPConnection::init(EScript::Namespace & lib) {
 	declareConstant(&lib,getClassName(),typeObject);
 
 	//! [ESF] (static) TCPConnection|false TCPConnection.connect(host,port)
-	ES_FUNCTION2(typeObject,"connect",2,2,{
+	ES_FUNCTION(typeObject,"connect",2,2,{
 		Util::Reference<TCPConnection> s=TCPConnection::connect(IPv4Address::resolveHost(parameter[0].toString(), parameter[1].toInt()));
 		if (s.isNull()) {
 			return Bool::create(false);
@@ -81,7 +81,7 @@ void E_TCPServer::init(EScript::Namespace & lib) {
 	declareConstant(&lib,getClassName(),typeObject);
 
 	//! [ESF] (static) TCPServer|false TCPServer.create(port)
-	ES_FUNCTION2(typeObject,"create",1,1,{
+	ES_FUNCTION(typeObject,"create",1,1,{
 		TCPServer * s=TCPServer::create(parameter[0].toInt());
 		if (s == nullptr) {
 			return Bool::create(false);

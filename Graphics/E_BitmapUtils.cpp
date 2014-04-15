@@ -14,7 +14,7 @@
 #include <Util/Graphics/BitmapUtils.h>
 #include <Util/Graphics/PixelAccessor.h>
 #include <EScript/EScript.h>
-#include <EScript/Utils/DeprecatedMacros.h>
+
 
 namespace E_Util {
 namespace E_BitmapUtils{
@@ -31,7 +31,7 @@ void init(EScript::Namespace & lib) {
 				parameter[1].to<const PixelFormat&>(rt))))
 
 	//! void BitmapUtil._mulScalar(Bitmap source,value)
-	ES_FUNCTION2(&lib,"_mulScalar",2,2,{
+	ES_FUNCTION(&lib,"_mulScalar",2,2,{
 		const float factor = parameter[1].toFloat();
 		BitmapUtils::alterBitmap(	parameter[0].to<Bitmap &>(rt), 
 									[factor](const BitmapUtils::BitmapAlteringContext & ctxt) {
@@ -41,7 +41,7 @@ void init(EScript::Namespace & lib) {
 	});
 
 	//! Bitmap BitmapUtil.blendTogether(PixelFormat,Array of Bitmaps)
-	ES_FUNCTION2(&lib, "blendTogether", 2, 2, {
+	ES_FUNCTION(&lib, "blendTogether", 2, 2, {
 		EScript::Array * arr = parameter[1].to<EScript::Array*>(rt);
 		std::vector<Util::Reference<Util::Bitmap>> bitmaps;
 		for(auto & element : *arr) {
@@ -51,7 +51,7 @@ void init(EScript::Namespace & lib) {
 	})
 
 	//! Bitmap BitmapUtil.combineInterleaved(PixelFormat,Array of Bitmaps)
-	ES_FUNCTION2(&lib, "combineInterleaved", 2, 2, {
+	ES_FUNCTION(&lib, "combineInterleaved", 2, 2, {
 		EScript::Array * arr = parameter[1].to<EScript::Array*>(rt);
 		std::vector<Util::Reference<Util::Bitmap>> bitmaps;
 		for(auto & element : *arr) {

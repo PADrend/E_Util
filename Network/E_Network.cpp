@@ -20,7 +20,7 @@
 #include <Util/Network/NetworkUDP.h>
 
 #include <EScript/EScript.h>
-#include <EScript/Utils/DeprecatedMacros.h>
+
 
 using namespace EScript;
 
@@ -36,7 +36,7 @@ void E_Network::init(EScript::Namespace & lib) {
 	//-------------
 
 	//! [ESF] bool Network.init()
-	ES_FUNCTION2(networkLib,"init",0,0, {
+	ES_FUNCTION(networkLib,"init",0,0, {
 		if (!Util::Network::init()) {
 			std::cout << "Network initialization failed!\n";
 			return Bool::create(false);

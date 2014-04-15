@@ -11,7 +11,7 @@
 #include "E_Bitmap.h"
 
 #include <EScript/EScript.h>
-#include <EScript/Utils/DeprecatedMacros.h>
+
 #include <Util/Graphics/Bitmap.h>
 #include <Util/Graphics/BitmapUtils.h>
 #include <sstream>
@@ -34,7 +34,7 @@ void E_Bitmap::init(EScript::Namespace & lib) {
 
 	//!	[ESMF] thisObj Bitmap.flipVertically()
 	//ES_MFUN(typeObject,Bitmap,"flipVertically",0,0,(thisObj->flipVertically(),thisEObj))
-	ES_FUNCTION2(typeObject, "flipVertically", 0, 0, {
+	ES_FUNCTION(typeObject, "flipVertically", 0, 0, {
 		Bitmap & thisObj = thisEObj.to<Bitmap &>(rt);
 		thisObj.flipVertically();
 		return thisEObj;
