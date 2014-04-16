@@ -28,6 +28,7 @@
 #include "E_Timer.h"
 #include "E_FileName.h"
 #include "E_UpdatableHeap.h"
+#include "IO/E_FileLocator.h"
 #include "IO/E_TemporaryDirectory.h"
 
 // [Network support]
@@ -177,6 +178,7 @@ void init(EScript::Namespace * globals) {
 	// Objects
 
 	E_DestructionMonitor::init(*lib);
+	E_FileLocator::init(*lib);
 	E_MicroXMLReader::init(*lib);
 	E_Bitmap::init(*lib);
 	E_BitmapUtils::init(*lib);

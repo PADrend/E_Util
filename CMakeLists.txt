@@ -31,6 +31,7 @@ add_library(E_Util
 	Graphics/E_BitmapUtils.cpp
 	Graphics/E_Color.cpp
 	Graphics/E_PixelAccessor.cpp
+	IO/E_FileLocator.cpp
 	IO/E_TemporaryDirectory.cpp
 	Network/E_ClockSynchronizer.cpp
 	Network/E_DataBroadcaster.cpp
