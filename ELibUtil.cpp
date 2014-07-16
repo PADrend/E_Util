@@ -16,6 +16,7 @@
 #include <Util/IO/FileUtils.h>
 #include <Util/Serialization/Serialization.h>
 #include <Util/StringUtils.h>
+#include <Util/TypeConstant.h>
 #include <Util/Utils.h>
 
 #include "E_MicroXMLReader.h"
@@ -43,7 +44,7 @@ namespace E_Util {
 // ---------------------------------------------------------
 
 void init(EScript::Namespace * globals) {
-	auto lib=new Namespace();
+	auto lib=new Namespace;
 	declareConstant(globals,"Util",lib);
 
 	//---------------------------------------------------------------------------
@@ -173,6 +174,20 @@ void init(EScript::Namespace * globals) {
 		const std::vector<uint8_t> data = Util::decodeBase64( parameter[0].toString() );
 		return std::string(data.begin(), data.end());
 	})
+
+	
+	Namespace* E_TypeConstant = new Namespace;
+	declareConstant( lib,			 "TypeConstant",		E_TypeConstant );
+	declareConstant( E_TypeConstant, "UINT8",				static_cast<uint32_t>(Util::TypeConstant::UINT8) );
+	declareConstant( E_TypeConstant, "UINT16",				static_cast<uint32_t>(Util::TypeConstant::UINT16) );
+	declareConstant( E_TypeConstant, "UINT32",				static_cast<uint32_t>(Util::TypeConstant::UINT32) );
+	declareConstant( E_TypeConstant, "UINT64",				static_cast<uint32_t>(Util::TypeConstant::UINT64) );
+	declareConstant( E_TypeConstant, "INT8",				static_cast<uint32_t>(Util::TypeConstant::INT8) );
+	declareConstant( E_TypeConstant, "INT16",				static_cast<uint32_t>(Util::TypeConstant::INT16) );
+	declareConstant( E_TypeConstant, "INT32",				static_cast<uint32_t>(Util::TypeConstant::INT32) );
+	declareConstant( E_TypeConstant, "INT64",				static_cast<uint32_t>(Util::TypeConstant::INT64) );
+	declareConstant( E_TypeConstant, "FLOAT",				static_cast<uint32_t>(Util::TypeConstant::FLOAT) );
+	declareConstant( E_TypeConstant, "DOUBLE",				static_cast<uint32_t>(Util::TypeConstant::DOUBLE) );
 
 	// --------------------------------------------------------------------------
 	// Objects
