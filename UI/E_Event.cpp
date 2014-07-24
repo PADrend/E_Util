@@ -283,5 +283,8 @@ Util::UI::Event E_Event::getEvent() const {
 	return event;
 }
 
+E_Event* E_Event::clone()const {
+	return new E_Event(getEvent());	
+}
 }
 }

@@ -29,9 +29,9 @@ class E_Event : public EScript::ExtObject {
 		static void init(EScript::Namespace & lib);
 
 		E_Event(const Util::UI::Event & event);
-		virtual ~E_Event() {
-		}
+		virtual ~E_Event() { }
 
+		E_Event* clone()const override;
 		Util::UI::Event getEvent() const;
 };
 
