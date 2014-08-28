@@ -31,6 +31,7 @@
 #include "E_FileName.h"
 #include "E_UpdatableHeap.h"
 #include "IO/E_FileLocator.h"
+#include "IO/E_IOStream.h"
 #include "IO/E_TemporaryDirectory.h"
 
 // [Network support]
@@ -105,6 +106,15 @@ void init(EScript::Namespace * globals) {
 			return Bool::create(false);
 		}
 		return String::create(fileContents);
+	})
+
+
+	//! [ESF] IOStream|void Util.openFile( path );
+	ES_FUNCTION(lib, "openFile", 1, 1, {
+		std::unique_ptr<std::iostream> stream( FileUtils::open(FileName(parameter[0].toString())));
+		if(!stream)
+			return nullptr;
+		return new E_IOStream( std::move(stream) );
 	})
 
 	//! [ESF] bool Util.saveFile( path , string [,bool overwrite=true] );
@@ -206,6 +216,7 @@ void init(EScript::Namespace * globals) {
 
 	E_DestructionMonitor::init(*lib);
 	E_FileLocator::init(*lib);
+	E_IOStream::init(*lib);
 	E_MicroXMLReader::init(*lib);
 	E_Bitmap::init(*lib);
 	E_BitmapUtils::init(*lib);
