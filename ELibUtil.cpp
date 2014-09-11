@@ -12,6 +12,7 @@
 #include <sstream>
 
 #include <Util/Encoding.h>
+#include <Util/LibRegistry.h>
 #include <Util/IO/FileName.h>
 #include <Util/IO/FileUtils.h>
 #include <Util/Serialization/Serialization.h>
@@ -175,6 +176,17 @@ void init(EScript::Namespace * globals) {
 		return std::string(data.begin(), data.end());
 	})
 
+	//! Map Util.getLibVersionStrings()
+	ES_FUNCTION(lib, "getLibVersionStrings", 0, 0, {
+		EScript::ERef<Map> m = new EScript::Map;
+		for( const auto& p : Util::LibRegistry::getLibVersionStrings()){
+			m->setValue( EScript::create(p.first), EScript::create(p.second) );
+		}
+		return m.detachAndDecrease();
+	});
+	
+	//! [ESF] void Util.registerLibVersionString(lib,versionString)
+	ES_FUN(lib, "registerLibVersionString", 2, 2, (Util::LibRegistry::registerLibVersionString(parameter[0].toString(),parameter[1].toString()),EScript::create(nullptr)))
 	
 	Namespace* E_TypeConstant = new Namespace;
 	declareConstant( lib,			 "TypeConstant",		E_TypeConstant );
