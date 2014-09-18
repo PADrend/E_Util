@@ -47,30 +47,35 @@ void E_PixelAccessor::init(EScript::Namespace & lib) {
 
 
 	//! [ESMF] Bitmap PixelAccessor.getBitmap()
-	ES_MFUN(typeObject,E_PixelAccessor,"getBitmap",0,0,EScript::create((**thisObj)->getBitmap() ))
+	ES_MFUN(typeObject,PixelAccessor,"getBitmap",0,0,EScript::create(thisObj->getBitmap() ))
 
 	//! [ESMF] Number PixelAccessor.getWidth()
-	ES_MFUN(typeObject,E_PixelAccessor,"getWidth",0,0,(**thisObj)->getWidth() )
+	ES_MFUN(typeObject,const PixelAccessor,"getWidth",0,0,thisObj->getWidth() )
 
 	//! [ESMF] Number PixelAccessor.getHeight()
-	ES_MFUN(typeObject,E_PixelAccessor,"getHeight",0,0,(**thisObj)->getHeight() )
+	ES_MFUN(typeObject,const PixelAccessor,"getHeight",0,0,thisObj->getHeight() )
 
 	//! [ESMF] Color4f PixelAccessor.readColor4f(x,y)
-	ES_MFUN(typeObject,E_PixelAccessor,"readColor4f",2,2,
-				EScript::create((**thisObj)->readColor4f(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt)) ))
+	ES_MFUN(typeObject,const PixelAccessor,"readColor4f",2,2,
+				EScript::create(thisObj->readColor4f(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt)) ))
 
 	//! [ESMF] Color4ub PixelAccessor.readColor4ub(x,y)
-	ES_MFUN(typeObject,E_PixelAccessor,"readColor4ub",2,2,
-				EScript::create((**thisObj)->readColor4ub(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt)) ))
+	ES_MFUN(typeObject,const PixelAccessor,"readColor4ub",2,2,
+				EScript::create(thisObj->readColor4ub(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt)) ))
 
 	//! [ESMF] thisObj PixelAccessor.writeColor(x,y, (Color4ub|Color4f) )
-	ES_MFUNCTION(typeObject,E_PixelAccessor,"writeColor",3,3,{
-		(**thisObj)->writeColor(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt), parameter[2].to<Color4f>(rt));
+	ES_MFUNCTION(typeObject,PixelAccessor,"writeColor",3,3,{
+		thisObj->writeColor(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt), parameter[2].to<Color4f>(rt));
 		return thisEObj;
 	})
+
+	//! [ESMF] thisObj PixelAccessor.writeSingleValueFloat(x,y, Number )
+	ES_MFUN(typeObject,PixelAccessor,"writeSingleValueFloat",3,3,
+		(thisObj->writeSingleValueFloat(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt), parameter[2].to<float>(rt)),thisEObj))
+
 	//! [ESMF] thisObj PixelAccessor.fill(x,y,width,height, (Color4ub|Color4f) )
-	ES_MFUNCTION(typeObject,E_PixelAccessor,"fill",5,5,{
-		(**thisObj)->fill(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt),parameter[3].to<uint32_t>(rt),parameter[4].to<Color4f>(rt));
+	ES_MFUNCTION(typeObject,PixelAccessor,"fill",5,5,{
+		thisObj->fill(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt),parameter[2].to<uint32_t>(rt),parameter[3].to<uint32_t>(rt),parameter[4].to<Color4f>(rt));
 		return thisEObj;
 	})
 }
