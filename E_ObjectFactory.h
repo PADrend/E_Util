@@ -13,9 +13,9 @@
 
 #include <Util/StringIdentifier.h>
 #include <Util/Factory/WrapperFactory.h>
+#include <cstdint>
 #include <functional>
 #include <iostream>
-#include <cstdint>
 
 namespace E_Util {
 

@@ -21,6 +21,7 @@
 
 #include <EScript/EScript.h>
 
+#include <iostream>
 
 using namespace EScript;
 
