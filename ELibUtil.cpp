@@ -211,6 +211,9 @@ void init(EScript::Namespace * globals) {
 	declareConstant( E_TypeConstant, "FLOAT",				static_cast<uint32_t>(Util::TypeConstant::FLOAT) );
 	declareConstant( E_TypeConstant, "DOUBLE",				static_cast<uint32_t>(Util::TypeConstant::DOUBLE) );
 
+	//! [ESF] Number Util.getNumBytes(Util.TypeConstant)
+	ES_FUN(lib, "getNumBytes", 1, 1, Number::create(Util::getNumBytes(static_cast<Util::TypeConstant>(parameter[0].to<uint32_t>(rt)))))
+
 	// --------------------------------------------------------------------------
 	// Objects
 
