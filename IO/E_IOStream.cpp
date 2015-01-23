@@ -11,6 +11,8 @@
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 
+#include <string>
+
 namespace E_Util {
 
 //! (static)
@@ -35,6 +37,17 @@ void E_IOStream::init(EScript::Namespace & lib) {
 			return EScript::create(nullptr);
 		else
 			return EScript::create(std::string("")+static_cast<char>(c));
+	})
+
+	//! [ESMF] String|void IOStream.readLine( )
+	ES_MFUNCTION(typeObject, std::iostream, "readLine", 0, 0,	{
+		if( thisObj->eof() )
+			return EScript::create(nullptr);
+		else {
+			std::string out;
+			std::getline(*thisObj, out);
+			return EScript::create(out);
+		}
 	})
 
 	//! [ESMF] thisEObj IOStream.write( String )
