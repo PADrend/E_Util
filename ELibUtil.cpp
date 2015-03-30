@@ -1,7 +1,7 @@
 /*
 	This file is part of the E_Util library.
 	Copyright (C) 2009-2012 Benjamin Eikel <benjamin@eikel.org>
-	Copyright (C) 2009-2012 Claudius Jähn <claudius@uni-paderborn.de>
+	Copyright (C) 2009-2012,2015 Claudius Jähn <claudius@uni-paderborn.de>
 	Copyright (C) 2009-2012 Ralf Petring <ralf@petring.net>
 	
 	This library is subject to the terms of the Mozilla Public License, v. 2.0.
@@ -19,6 +19,8 @@
 #include <Util/StringUtils.h>
 #include <Util/TypeConstant.h>
 #include <Util/Utils.h>
+#include <EScript/Basics.h>
+#include <EScript/StdObjects.h>
 
 #include "E_MicroXMLReader.h"
 #include "Graphics/E_Bitmap.h"
@@ -41,6 +43,116 @@
 
 using namespace EScript;
 using namespace Util;
+
+static bool isBigEndian(){
+	union {
+		uint32_t i;
+		uint8_t c[4];
+	} bint = {0x01020304};
+	return bint.c[0] == 1; 
+}
+
+template<typename T>
+static double readNumber(const char* source){
+	return static_cast<double>( *reinterpret_cast<const T*>(source) );
+}
+template<typename T>
+static double readNumber_SwitchEndianness(const char* source){
+	T number;
+	char* target = reinterpret_cast<char*>(&number)+sizeof(T)-1;
+	for(uint_fast8_t i=0;i<sizeof(T); ++i, ++source, --target)
+		*target = *source;
+	return number;
+}
+static double readNumber(const Util::TypeConstant type, const std::string& s, uint32_t index){
+	if( index + Util::getNumBytes(type)>s.size() )
+		throw std::out_of_range("readBinaryNumberFromString: invalid data index.");
+	double result;
+	switch(type){
+		case Util::TypeConstant::UINT8:		result = readNumber<uint8_t>(s.data()+index);	break;
+		case Util::TypeConstant::UINT16:	result = readNumber<uint16_t>(s.data()+index);	break;
+		case Util::TypeConstant::UINT32:	result = readNumber<uint32_t>(s.data()+index);	break;
+		case Util::TypeConstant::UINT64:	result = readNumber<uint64_t>(s.data()+index);	break;
+		case Util::TypeConstant::INT8:		result = readNumber<int8_t>(s.data()+index);	break;
+		case Util::TypeConstant::INT16:		result = readNumber<int16_t>(s.data()+index);	break;
+		case Util::TypeConstant::INT32:		result = readNumber<int32_t>(s.data()+index);	break;
+		case Util::TypeConstant::INT64:		result = readNumber<int64_t>(s.data()+index);	break;
+		case Util::TypeConstant::FLOAT:		result = readNumber<float>(s.data()+index);		break;
+		case Util::TypeConstant::DOUBLE:	result = readNumber<double>(s.data()+index);	break;
+		default: throw std::out_of_range("readBinaryNumberFromString: invalid data type constant.");
+	}
+	return result;
+}
+static double readNumber_SwitchEndianness(const Util::TypeConstant type, const std::string& s, uint32_t index){
+	if( index + Util::getNumBytes(type)>s.size() )
+		throw std::out_of_range("readBinaryNumberFromString: invalid data index.");
+	double result;
+	switch(type){
+		case Util::TypeConstant::UINT8:		result = readNumber_SwitchEndianness<uint8_t>(s.data()+index);	break;
+		case Util::TypeConstant::UINT16:	result = readNumber_SwitchEndianness<uint16_t>(s.data()+index);	break;
+		case Util::TypeConstant::UINT32:	result = readNumber_SwitchEndianness<uint32_t>(s.data()+index);	break;
+		case Util::TypeConstant::UINT64:	result = readNumber_SwitchEndianness<uint64_t>(s.data()+index);	break;
+		case Util::TypeConstant::INT8:		result = readNumber_SwitchEndianness<int8_t>(s.data()+index);	break;
+		case Util::TypeConstant::INT16:		result = readNumber_SwitchEndianness<int16_t>(s.data()+index);	break;
+		case Util::TypeConstant::INT32:		result = readNumber_SwitchEndianness<int32_t>(s.data()+index);	break;
+		case Util::TypeConstant::INT64:		result = readNumber_SwitchEndianness<int64_t>(s.data()+index);	break;
+		case Util::TypeConstant::FLOAT:		result = readNumber_SwitchEndianness<float>(s.data()+index);	break;
+		case Util::TypeConstant::DOUBLE:	result = readNumber_SwitchEndianness<double>(s.data()+index);	break;
+		default: throw std::out_of_range("readBinaryNumberFromString: invalid data type constant.");
+	}
+	return result;
+}
+
+template<typename T>
+static void writeNumber(std::string& target, uint32_t index, double value){
+	const T value2 = static_cast<T>(value);
+	for(uint_fast8_t i=0;i<sizeof(T); ++i,++index)
+		target[index] = reinterpret_cast<const char*>(&value2)[i];
+}
+template<typename T>
+static void writeNumber_SwitchEndianness(std::string& target, uint32_t index, double value){
+	const T value2 = static_cast<T>(value);
+	index += sizeof(T)-1;
+	for(uint_fast8_t i=0;i<sizeof(T); ++i,--index)
+		target[index] = reinterpret_cast<const char*>(&value2)[i];
+}
+static std::string writeBinaryNumber(const Util::TypeConstant type, std::string s, uint32_t index, double value){
+	if( index + Util::getNumBytes(type)>s.size() )
+		throw std::out_of_range("writeBinaryNumber: invalid data index.");
+	switch(type){
+		case Util::TypeConstant::UINT8:		writeNumber<uint8_t>(s,index,value);	break;
+		case Util::TypeConstant::UINT16:	writeNumber<uint16_t>(s,index,value);	break;
+		case Util::TypeConstant::UINT32:	writeNumber<uint32_t>(s,index,value);	break;
+		case Util::TypeConstant::UINT64:	writeNumber<uint64_t>(s,index,value);	break;
+		case Util::TypeConstant::INT8:		writeNumber<int8_t>(s,index,value);		break;
+		case Util::TypeConstant::INT16:		writeNumber<int16_t>(s,index,value);	break;
+		case Util::TypeConstant::INT32:		writeNumber<int32_t>(s,index,value);	break;
+		case Util::TypeConstant::INT64:		writeNumber<int64_t>(s,index,value);	break;
+		case Util::TypeConstant::FLOAT:		writeNumber<float>(s,index,value);		break;
+		case Util::TypeConstant::DOUBLE:	writeNumber<double>(s,index,value);		break;
+		default: throw std::out_of_range("writeBinaryNumber: invalid data type constant.");
+	}
+	return std::move(s);
+}
+static std::string writeBinaryNumber_SwitchEndianness(const Util::TypeConstant type, std::string s, uint32_t index, double value){
+	if( index + Util::getNumBytes(type)>s.size() )
+		throw std::out_of_range("writeBinaryNumber: invalid data index.");
+	switch(type){
+		case Util::TypeConstant::UINT8:		writeNumber_SwitchEndianness<uint8_t>(s,index,value);	break;
+		case Util::TypeConstant::UINT16:	writeNumber_SwitchEndianness<uint16_t>(s,index,value);	break;
+		case Util::TypeConstant::UINT32:	writeNumber_SwitchEndianness<uint32_t>(s,index,value);	break;
+		case Util::TypeConstant::UINT64:	writeNumber_SwitchEndianness<uint64_t>(s,index,value);	break;
+		case Util::TypeConstant::INT8:		writeNumber_SwitchEndianness<int8_t>(s,index,value);	break;
+		case Util::TypeConstant::INT16:		writeNumber_SwitchEndianness<int16_t>(s,index,value);	break;
+		case Util::TypeConstant::INT32:		writeNumber_SwitchEndianness<int32_t>(s,index,value);	break;
+		case Util::TypeConstant::INT64:		writeNumber_SwitchEndianness<int64_t>(s,index,value);	break;
+		case Util::TypeConstant::FLOAT:		writeNumber_SwitchEndianness<float>(s,index,value);		break;
+		case Util::TypeConstant::DOUBLE:	writeNumber_SwitchEndianness<double>(s,index,value);	break;
+		default: throw std::out_of_range("writeBinaryNumber: invalid data type constant.");
+	}
+	return std::move(s);
+}
+
 
 namespace E_Util {
 // ---------------------------------------------------------
@@ -214,6 +326,51 @@ void init(EScript::Namespace * globals) {
 	//! [ESF] Number Util.getNumBytes(Util.TypeConstant)
 	ES_FUN(lib, "getNumBytes", 1, 1, Number::create(Util::getNumBytes(static_cast<Util::TypeConstant>(parameter[0].to<uint32_t>(rt)))))
 
+	// --------------------------------------------------------------------------
+
+	//! Number Util.readBinaryNumberFromString(type,string,byteIndex)
+	ES_FUN(lib, "readBinaryNumberFromString", 3, 3, 
+				readNumber(	static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt()) )
+	
+	if(isBigEndian()){
+		//! Number Util.readBinaryNumberFromString_LittleEndian(type,string,byteIndex)
+		ES_FUN(lib, "readBinaryNumberFromString_LittleEndian", 3, 3, 
+					readNumber_SwitchEndianness(	static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt()) )
+
+		//! Number Util.readBinaryNumberFromString_BigEndian(type,string,byteIndex)
+		ES_FUN(lib, "readBinaryNumberFromString_BigEndian", 3, 3, 
+					readNumber(		static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt()) )
+	}else{
+		//! Number Util.readBinaryNumberFromString_LittleEndian(type,string,byteIndex)
+		ES_FUN(lib, "readBinaryNumberFromString_LittleEndian", 3, 3, 
+					readNumber(		static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt()) )
+
+		//! Number Util.readBinaryNumberFromString_BigEndian(type,string,byteIndex)
+		ES_FUN(lib, "readBinaryNumberFromString_BigEndian", 3, 3, 
+					readNumber_SwitchEndianness(	static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt()) )
+	}
+	//! Number Util.writeBinaryNumberToString(type,string,byteIndex, value)
+	ES_FUN(lib, "writeBinaryNumberToString", 4, 4,
+				writeBinaryNumber(	static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt(),parameter[3].toDouble()))
+	
+	if(isBigEndian()){
+		//! String Util.writeBinaryNumberToString_LittleEndian(type,string,byteIndex, value)
+		ES_FUN(lib, "writeBinaryNumberToString_LittleEndian", 4, 4,
+					std::move(writeBinaryNumber_SwitchEndianness(	static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt(),parameter[3].toDouble()) ))
+
+		//! String Util.writeBinaryNumberToString_BigEndian(type,string,byteIndex, value)
+		ES_FUN(lib, "writeBinaryNumberToString_BigEndian", 4, 4,
+					std::move(writeBinaryNumber(		static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt(),parameter[3].toDouble()) ))
+	}else{
+		//! String Util.writeBinaryNumberToString_LittleEndian(type,string,byteIndex, value)
+		ES_FUN(lib, "writeBinaryNumberToString_LittleEndian", 4, 4,
+					std::move(writeBinaryNumber(		static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt(),parameter[3].toDouble()) ))
+
+		//! String Util.writeBinaryNumberToString_BigEndian(type,string,byteIndex, value)
+		ES_FUN(lib, "writeBinaryNumberToString_BigEndian", 4, 4,
+					std::move(writeBinaryNumber_SwitchEndianness(	static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt(),parameter[3].toDouble()) ))
+	}
+	
 	// --------------------------------------------------------------------------
 	// Objects
 
