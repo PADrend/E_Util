@@ -17,8 +17,8 @@
 namespace E_Util{
 
 /**
- ** EScript-Binding for Util::Color
- **   [E_Color4f] ---|> [ReferenceObject] ---|> [Object]
+ ** EScript-Binding for Util::Timer
+ **   [Timer] ---|> [ReferenceObject] ---|> [Object]
  **/
 class E_Timer : public EScript::ReferenceObject<Util::Timer> {
 		ES_PROVIDES_TYPE_NAME(Timer)
