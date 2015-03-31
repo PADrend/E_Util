@@ -48,9 +48,17 @@ void E_TCPConnection::init(EScript::Namespace & lib) {
 	//! [ESMF] thisObj TCPConnection.isOpen()
 	ES_MFUN(typeObject,E_TCPConnection,"isOpen",0,0,(**thisObj)->isOpen())
 
-	//! [ESMF] String|false TCPConnection.receiveString([delimiter='\0'])
+	//! [ESMF] String|false TCPConnection.receiveString([delimiter='\0'|length])
 	ES_MFUNCTION(typeObject,E_TCPConnection,"receiveString",0,1,{
-		std::string s=(**thisObj)->receiveString(parameter[0].toString("\0").c_str()[0]);
+		EScript::Number* len = parameter[0].toType<EScript::Number>();
+		std::string s;
+		if(len) {
+			const std::vector<uint8_t> d = (**thisObj)->receiveData(len->toUInt());
+			if(!d.empty())
+				s.assign(d.begin(), d.end());
+		} else {
+			s=(**thisObj)->receiveString(parameter[0].toString("\0").c_str()[0]);
+		}
 		if (s.empty()) {
 			return EScript::create(false);
 		} else {
@@ -60,7 +68,7 @@ void E_TCPConnection::init(EScript::Namespace & lib) {
 
 	//! [ESMF] thisObj TCPConnection.sendString(String,[delimiter='\0'])
 	ES_MFUN(typeObject,E_TCPConnection,"sendString",1,2,
-				((**thisObj)->sendString(parameter[0].toString()+parameter[1].toString("\0").c_str()[0]),thisEObj))
+				((**thisObj)->sendString((parameter[1].isNotNull() && parameter[1].toString().empty()) ? parameter[0].toString() : parameter[0].toString()+parameter[1].toString("\0").c_str()[0]),thisEObj))
 }
 
 //---
