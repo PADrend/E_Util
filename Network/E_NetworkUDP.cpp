@@ -69,6 +69,10 @@ void E_UDPNetworkSocket::init(EScript::Namespace & lib) {
 	ES_MFUN(typeObject,E_UDPNetworkSocket,"sendString",1,1,
 				Number::create((**thisObj)->sendString(parameter[0].toString())))
 
+	//! [ESMF] number UDPNetworkSocket.getPort()
+	ES_MFUN(typeObject,E_UDPNetworkSocket,"getPort",0,0,
+				Number::create((**thisObj)->getPort()))
+
 }
 
 E_UDPNetworkSocket::E_UDPNetworkSocket(Util::Network::UDPNetworkSocket * _obj, EScript::Type * type):
