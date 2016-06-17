@@ -72,6 +72,11 @@ void E_PixelAccessor::init(EScript::Namespace & lib) {
 	//! [ESMF] thisObj PixelAccessor.writeSingleValueFloat(x,y, Number )
 	ES_MFUN(typeObject,PixelAccessor,"writeSingleValueFloat",3,3,
 		(thisObj->writeSingleValueFloat(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt), parameter[2].to<float>(rt)),thisEObj))
+		
+	//! [ESMF] Number PixelAccessor.SingleValueFloat(x,y)
+	ES_MFUN(typeObject,const PixelAccessor,"readSingleValueFloat",2,2,
+				EScript::create(thisObj->readSingleValueFloat(parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt)) ))
+
 
 	//! [ESMF] thisObj PixelAccessor.fill(x,y,width,height, (Color4ub|Color4f) )
 	ES_MFUNCTION(typeObject,PixelAccessor,"fill",5,5,{
