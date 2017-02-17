@@ -19,6 +19,7 @@
 #include <Util/StringUtils.h>
 #include <Util/TypeConstant.h>
 #include <Util/Utils.h>
+#include <Util/LoadLibrary.h>
 #include <EScript/Basics.h>
 #include <EScript/StdObjects.h>
 
@@ -371,6 +372,28 @@ void init(EScript::Namespace * globals) {
 					std::move(writeBinaryNumber_SwitchEndianness(	static_cast<Util::TypeConstant>(parameter[0].toUInt()),assertType<EScript::String>(rt,parameter[1])->getString(),parameter[2].toUInt(),parameter[3].toDouble()) ))
 	}
 	
+	//! Bool Util.loadELibrary(filename, [Namespace])
+	ES_FUNCTION(lib, "loadELibrary", 1, 2, {
+		auto libraryId = loadLibrary(parameter[0].toString());
+		if(libraryId.getValue() != 0) {
+			void* fnHandle = loadFunction(libraryId, "initLibrary");
+			if(fnHandle) {
+				auto * ns = parameter[1].toType<EScript::Namespace>();
+				reinterpret_cast<libInitFunction*>(fnHandle)(ns ? ns : rt.getGlobals());
+				return EScript::create(true);
+			}
+		}
+		return EScript::create(false);
+	})
+	
+	
+	/* Shouldn't be used!
+	//! void Util.unloadELibrary(filename)
+	ES_FUNCTION(lib, "unloadELibrary", 1, 1, {
+		Util::StringIdentifier libraryId(parameter[0].toString());
+		unloadLibrary(libraryId);
+		return EScript::create(nullptr);
+	})*/
 	// --------------------------------------------------------------------------
 	// Objects
 
