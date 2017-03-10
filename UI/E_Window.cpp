@@ -41,6 +41,7 @@ void E_Window::init(EScript::Namespace & lib) {
 	static const EScript::StringId ATTR_posY("posY");
 	static const EScript::StringId ATTR_multisamples("multisamples");
 	static const EScript::StringId ATTR_title("title");
+	static const EScript::StringId ATTR_shareContext("shareContext");
 
 		
 	//!(static) [ESM] ExtObject Window.createPropertyObject()
@@ -61,6 +62,7 @@ void E_Window::init(EScript::Namespace & lib) {
 		eProperties->setAttribute(ATTR_posY,EScript::Number::create(properties.posY));
 		eProperties->setAttribute(ATTR_multisamples,EScript::Number::create(properties.multisamples));
 		eProperties->setAttribute(ATTR_title,EScript::String::create(properties.title));
+		eProperties->setAttribute(ATTR_shareContext,EScript::Bool::create(properties.shareContext));
 		return eProperties.detachAndDecrease();
 	})
 
@@ -96,6 +98,8 @@ void E_Window::init(EScript::Namespace & lib) {
 			properties.multisamples = attr->toUInt();
 		if( (attr = eProperties->getAttribute(ATTR_title).getValue()) != nullptr)
 			properties.title = attr->toString();
+		if( (attr = eProperties->getAttribute(ATTR_shareContext).getValue()) != nullptr)
+			properties.shareContext = attr->toBool();
 		return new E_Window(properties);
 	})
 
@@ -127,6 +131,9 @@ void E_Window::init(EScript::Namespace & lib) {
 	//! [ESMF] thisObj Window.setIcon(String imagePath)
 	ES_MFUN(typeObject, E_Window, "setIcon", 1, 1, 
 				 ((**thisObj)->setIcon(*Util::Serialization::loadBitmap(Util::FileName(parameter[0].toString())).get()), thisObj))
+				 
+	//! [ESMF] thisObj Window.makeCurrent()
+	ES_MFUN(typeObject, E_Window, "makeCurrent", 0, 0, ((**thisObj)->makeCurrent(),thisEObj))
 }
 
 E_Window::E_Window(const Util::UI::Window::Properties & properties) :
