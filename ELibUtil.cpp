@@ -170,6 +170,9 @@ void init(EScript::Namespace * globals) {
 
 	//! [ESF] Bool Util.createDir(String)
 	ES_FUN(lib, "createDir", 1, 1, Bool::create(FileUtils::createDir(FileName(parameter[0].toString()))))
+	
+	//! [ESF] Bool Util.removeFile(String, [recursive = false])
+	ES_FUN(lib, "removeFile", 1, 2, Bool::create(FileUtils::remove(FileName(parameter[0].toString()), parameter[1].toBool(false))))
 
 	declareConstant(lib,"DIR_FILES",Number::create(FileUtils::DIR_FILES));
 	declareConstant(lib,"DIR_DIRECTORIES",Number::create(FileUtils::DIR_DIRECTORIES));
