@@ -60,8 +60,8 @@ endif()
 target_link_libraries(E_Util LINK_PUBLIC Util)
 
 # Set version of library
-set_target_properties(E_Util PROPERTIES VERSION ${E_UTIL_VERSION}
-                                        SOVERSION ${E_UTIL_VERSION_MAJOR})
+set_target_properties(E_Util PROPERTIES VERSION ${E_Util_VERSION}
+                                        SOVERSION ${E_Util_VERSION_MAJOR})
 
 # Install the header files
 file(GLOB E_UTIL_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/Graphics/*.h")
@@ -99,7 +99,7 @@ configure_package_config_file(E_UtilConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/
                               NO_SET_AND_CHECK_MACRO
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/E_UtilConfigVersion.cmake
-                                 VERSION ${E_UTIL_VERSION}
+                                 VERSION ${E_Util_VERSION}
                                  COMPATIBILITY SameMajorVersion)
 
 # Install the configuration files
@@ -109,13 +109,13 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/E_UtilConfig.cmake ${CMAKE_CURRENT_BIN
 # Packaging
 include(InstallRequiredSystemLibraries)
 
-set(CPACK_PACKAGE_NAME "libutil${E_UTIL_VERSION_MAJOR}-escript")
+set(CPACK_PACKAGE_NAME "libutil${E_Util_VERSION_MAJOR}-escript")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "E_Util library")
 set(CPACK_PACKAGE_VENDOR "Benjamin Eikel; Claudius Jaehn; Ralf Petring")
 set(CPACK_PACKAGE_CONTACT "Benjamin Eikel <benjamin@eikel.org>")
-set(CPACK_PACKAGE_VERSION_MAJOR ${E_UTIL_VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${E_UTIL_VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${E_UTIL_VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION_MAJOR ${E_Util_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${E_Util_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${E_Util_VERSION_PATCH})
 set(CPACK_PACKAGE_FILE_NAME "libE_Util")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 set(CPACK_STRIP_FILES ON)
