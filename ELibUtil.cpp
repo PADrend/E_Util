@@ -164,6 +164,10 @@ void init(EScript::Namespace * globals) {
 
 	//---------------------------------------------------------------------------
 	// IO
+	
+	/** @defgroup io IO
+	 * @{
+	 */
 
 	//! [ESF] Bool Util.copyFile(String, String)
 	ES_FUN(lib, "copyFile", 2, 2, Bool::create(FileUtils::copyFile(FileName(parameter[0].toString()), FileName(parameter[1].toString()))))
@@ -241,7 +245,23 @@ void init(EScript::Namespace * globals) {
 				std::vector<uint8_t>(fileContents.begin(), fileContents.end()),
 				parameter[2].toBool(true)));
 	})
+	//! @}
 
+	// --------------------------------------------------------------------------
+	// graphics
+	/** @defgroup graphics Graphics
+	 * @{
+	 */
+
+	//! [ESF] Bitmap Util.loadBitmap(String)
+	ES_FUN(lib, "loadBitmap", 1, 1,
+		EScript::create(Util::Serialization::loadBitmap(Util::FileName(parameter[0].toString()))));
+	//! [ESF] Void Util.saveBitmap(Bitmap, String)
+	ES_FUN(lib, "saveBitmap", 2, 2,
+		(Util::Serialization::saveBitmap(parameter[0].to<Util::Bitmap &>(rt), Util::FileName(parameter[1].toString())), EScript::create(nullptr)));
+		
+	//! @}
+		
 	// --------------------------------------------------------------------------
 	// misc
 
@@ -258,14 +278,6 @@ void init(EScript::Namespace * globals) {
 		}
 		return EScript::create(nullptr);
 	})
-
-	//! [ESF] Bitmap Util.loadBitmap(String)
-	ES_FUN(lib, "loadBitmap", 1, 1,
-		EScript::create(Util::Serialization::loadBitmap(Util::FileName(parameter[0].toString()))));
-	//! [ESF] Void Util.saveBitmap(Bitmap, String)
-	ES_FUN(lib, "saveBitmap", 2, 2,
-		(Util::Serialization::saveBitmap(parameter[0].to<Util::Bitmap &>(rt), Util::FileName(parameter[1].toString())), EScript::create(nullptr)));
-
 
 	//! [ESF]
 	ES_FUN(lib,"toFormattedString",1,1,String::create(Util::StringUtils::toFormattedString(parameter[0].toFloat())))
@@ -399,20 +411,28 @@ void init(EScript::Namespace * globals) {
 	})*/
 	// --------------------------------------------------------------------------
 	// Objects
-
-	E_DestructionMonitor::init(*lib);
+	
+	//! @addtogroup io
+	//! @{
 	E_FileLocator::init(*lib);
 	E_IOStream::init(*lib);
-	E_MicroXMLReader::init(*lib);
+	E_FileName::init(*lib);
+	E_TemporaryDirectory::init(*lib);
+	//! @}
+	
+	//! @addtogroup graphics
+	//! @{
 	E_Bitmap::init(*lib);
 	E_BitmapUtils::init(*lib);
-	E_FileName::init(*lib);
 	E_PixelAccessor::init(*lib);
 	E_Color4ub::init(*lib);
 	E_Color4f::init(*lib);
+	//! @}
+	
+	E_DestructionMonitor::init(*lib);
+	E_MicroXMLReader::init(*lib);
 	E_ProgressIndicator::init(*lib);
 	E_Timer::init(*lib);
-	E_TemporaryDirectory::init(*lib);
 	E_UpdatableHeap::init(*lib);
 
 	Network::E_Network::init(*lib);
