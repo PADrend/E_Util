@@ -59,6 +59,10 @@ void init(EScript::Namespace & lib) {
 		}
 		return EScript::create(BitmapUtils::combineInterleaved(parameter[0].to<const PixelFormat&>(rt), bitmaps));
 	})
+	
+
+	//! BitmapUtil.normalizeBitmap(Bitmap bitmap)
+	ES_FUN(&lib,"normalizeBitmap",1,1, (BitmapUtils::normalizeBitmap(parameter[0].to<Bitmap &>(rt)), thisEObj))
 }
 
 }
