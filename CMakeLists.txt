@@ -18,7 +18,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(GNUInstallDirs)
 set(CMAKE_INSTALL_CMAKECONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/E_Util)
 
-add_library(E_Util
+add_library(E_Util SHARED
 	E_DestructionMonitor.cpp
 	E_FileName.cpp
 	E_MicroXMLReader.cpp
@@ -62,7 +62,9 @@ target_link_libraries(E_Util LINK_PUBLIC Util)
 
 # Set version of library
 set_target_properties(E_Util PROPERTIES VERSION ${E_Util_VERSION}
-                                        SOVERSION ${E_Util_VERSION_MAJOR})
+																				SOVERSION ${E_Util_VERSION_MAJOR}
+																				POSITION_INDEPENDENT_CODE ON
+																				LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 # Install the header files
 file(GLOB E_UTIL_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/Graphics/*.h")
@@ -85,9 +87,9 @@ install(TARGETS E_Util EXPORT LibraryExport
 
 # Set include directories for users of this library
 target_include_directories(E_Util
-                           INTERFACE
-                           "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>"
-                           "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+													 INTERFACE
+													 "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>"
+													 "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
 
 # Library export
 install(EXPORT LibraryExport DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} FILE E_UtilTargets.cmake COMPONENT developmentlibraries)
@@ -95,17 +97,17 @@ install(EXPORT LibraryExport DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} FILE E_
 # Create the configuration files
 include(CMakePackageConfigHelpers)
 configure_package_config_file(E_UtilConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/E_UtilConfig.cmake
-                              INSTALL_DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR}
-                              PATH_VARS CMAKE_INSTALL_CMAKECONFIGDIR
-                              NO_SET_AND_CHECK_MACRO
-                              NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+															INSTALL_DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR}
+															PATH_VARS CMAKE_INSTALL_CMAKECONFIGDIR
+															NO_SET_AND_CHECK_MACRO
+															NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/E_UtilConfigVersion.cmake
-                                 VERSION ${E_Util_VERSION}
-                                 COMPATIBILITY SameMajorVersion)
+																 VERSION ${E_Util_VERSION}
+																 COMPATIBILITY SameMajorVersion)
 
 # Install the configuration files
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/E_UtilConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/E_UtilConfigVersion.cmake
-        DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} COMPONENT developmentlibraries)
+				DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} COMPONENT developmentlibraries)
 
 # Packaging
 include(InstallRequiredSystemLibraries)
