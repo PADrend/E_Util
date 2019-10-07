@@ -42,6 +42,8 @@ void E_Window::init(EScript::Namespace & lib) {
 	static const EScript::StringId ATTR_multisamples("multisamples");
 	static const EScript::StringId ATTR_title("title");
 	static const EScript::StringId ATTR_shareContext("shareContext");
+	static const EScript::StringId ATTR_contextVersionMajor("contextVersionMajor");
+	static const EScript::StringId ATTR_contextVersionMinor("contextVersionMinor");
 
 		
 	//!(static) [ESM] ExtObject Window.createPropertyObject()
@@ -63,6 +65,8 @@ void E_Window::init(EScript::Namespace & lib) {
 		eProperties->setAttribute(ATTR_multisamples,EScript::Number::create(properties.multisamples));
 		eProperties->setAttribute(ATTR_title,EScript::String::create(properties.title));
 		eProperties->setAttribute(ATTR_shareContext,EScript::Bool::create(properties.shareContext));
+		eProperties->setAttribute(ATTR_contextVersionMajor,EScript::Number::create(properties.contextVersionMajor));
+		eProperties->setAttribute(ATTR_contextVersionMinor,EScript::Number::create(properties.contextVersionMinor));
 		return eProperties.detachAndDecrease();
 	})
 
@@ -100,6 +104,10 @@ void E_Window::init(EScript::Namespace & lib) {
 			properties.title = attr->toString();
 		if( (attr = eProperties->getAttribute(ATTR_shareContext).getValue()) != nullptr)
 			properties.shareContext = attr->toBool();
+		if( (attr = eProperties->getAttribute(ATTR_contextVersionMajor).getValue()) != nullptr)
+			properties.contextVersionMajor = attr->toUInt();
+		if( (attr = eProperties->getAttribute(ATTR_contextVersionMinor).getValue()) != nullptr)
+			properties.contextVersionMinor = attr->toUInt();
 		return new E_Window(properties);
 	})
 
