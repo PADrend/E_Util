@@ -30,7 +30,7 @@ void E_Bitmap::init(EScript::Namespace & lib) {
 
 	//!	[ESF] Bitmap new Bitmap(width,height,E_PixelFormat format)
 	ES_CTOR(typeObject,3,3,
-			new Bitmap( parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt), parameter[2].to<const PixelFormat&>(rt)))
+			new Bitmap( parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt), parameter[2].to<const AttributeFormat&>(rt)))
 
 	//!	[ESMF] thisObj Bitmap.flipVertically()
 	//ES_MFUN(typeObject,Bitmap,"flipVertically",0,0,(thisObj->flipVertically(),thisEObj))

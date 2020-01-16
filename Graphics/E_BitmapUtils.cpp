@@ -24,11 +24,11 @@ using namespace Util;
 
 //!	initMembers
 void init(EScript::Namespace & lib) {
-	//! BitmapUtil.convertBitmap(Bitmap source,PixelFormat format)
+	//! BitmapUtil.convertBitmap(Bitmap source,AttributeFormat format)s
 	ES_FUN(&lib,"convertBitmap",2,2,
 			EScript::create(BitmapUtils::convertBitmap(
 				parameter[0].to<Bitmap &>(rt),
-				parameter[1].to<const PixelFormat&>(rt))))
+				parameter[1].to<const AttributeFormat&>(rt))))
 
 	//! void BitmapUtil._mulScalar(Bitmap source,value)
 	ES_FUNCTION(&lib,"_mulScalar",2,2,{
@@ -40,24 +40,24 @@ void init(EScript::Namespace & lib) {
 		return EScript::create(nullptr);
 	});
 
-	//! Bitmap BitmapUtil.blendTogether(PixelFormat,Array of Bitmaps)
+	//! Bitmap BitmapUtil.blendTogether(AttributeFormat,Array of Bitmaps)
 	ES_FUNCTION(&lib, "blendTogether", 2, 2, {
 		EScript::Array * arr = parameter[1].to<EScript::Array*>(rt);
 		std::vector<Util::Reference<Util::Bitmap>> bitmaps;
 		for(auto & element : *arr) {
 			bitmaps.push_back(element.to<Reference<Bitmap>>(rt));
 		}
-		return EScript::create(BitmapUtils::blendTogether(parameter[0].to<const PixelFormat&>(rt), bitmaps));
+		return EScript::create(BitmapUtils::blendTogether(parameter[0].to<const AttributeFormat&>(rt), bitmaps));
 	})
 
-	//! Bitmap BitmapUtil.combineInterleaved(PixelFormat,Array of Bitmaps)
+	//! Bitmap BitmapUtil.combineInterleaved(AttributeFormat,Array of Bitmaps)
 	ES_FUNCTION(&lib, "combineInterleaved", 2, 2, {
 		EScript::Array * arr = parameter[1].to<EScript::Array*>(rt);
 		std::vector<Util::Reference<Util::Bitmap>> bitmaps;
 		for(auto & element : *arr) {
 			bitmaps.push_back(element.to<Reference<Bitmap>>(rt));
 		}
-		return EScript::create(BitmapUtils::combineInterleaved(parameter[0].to<const PixelFormat&>(rt), bitmaps));
+		return EScript::create(BitmapUtils::combineInterleaved(parameter[0].to<const AttributeFormat&>(rt), bitmaps));
 	})
 	
 

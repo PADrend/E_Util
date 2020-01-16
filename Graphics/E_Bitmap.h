@@ -37,11 +37,11 @@ class E_Bitmap : public EScript::ReferenceObject<Util::Reference<Util::Bitmap>> 
 	// -------
 
 		//!	[E_PixelFormat] ---|> [ReferenceObject] ---|> [Object]
-		class E_PixelFormat : public EScript::ReferenceObject<Util::PixelFormat> {
+		class E_PixelFormat : public EScript::ReferenceObject<Util::AttributeFormat> {
 			ES_PROVIDES_TYPE_NAME(PixelFormat)
 		public:
 			static EScript::Type * pfTypeObject;
-			E_PixelFormat(const Util::PixelFormat & f) : ReferenceObject_t(f,pfTypeObject) {}
+			E_PixelFormat(const Util::AttributeFormat & f) : ReferenceObject_t(f,pfTypeObject) {}
 			virtual ~E_PixelFormat() {}
 		};
 };
@@ -50,8 +50,8 @@ class E_Bitmap : public EScript::ReferenceObject<Util::Reference<Util::Bitmap>> 
 
 ES_CONV_EOBJ_TO_OBJ(E_Util::E_Bitmap,					Util::Reference<Util::Bitmap>,		**eObj)
 ES_CONV_EOBJ_TO_OBJ(E_Util::E_Bitmap,					Util::Bitmap &,						*(**eObj).get())
-ES_CONV_EOBJ_TO_OBJ(E_Util::E_Bitmap::E_PixelFormat,	Util::PixelFormat &,				**eObj)
+ES_CONV_EOBJ_TO_OBJ(E_Util::E_Bitmap::E_PixelFormat,	Util::AttributeFormat &,				**eObj)
 ES_CONV_OBJ_TO_EOBJ(Util::Reference<Util::Bitmap>,		E_Util::E_Bitmap,					new E_Util::E_Bitmap(obj))
-ES_CONV_OBJ_TO_EOBJ(const Util::PixelFormat &, 			E_Util::E_Bitmap::E_PixelFormat,	new E_Util::E_Bitmap::E_PixelFormat(obj))
+ES_CONV_OBJ_TO_EOBJ(const Util::AttributeFormat &, 			E_Util::E_Bitmap::E_PixelFormat,	new E_Util::E_Bitmap::E_PixelFormat(obj))
 
 #endif /* E_BITMAP_H_ */
