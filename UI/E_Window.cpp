@@ -151,7 +151,7 @@ E_Window::E_Window(const Util::UI::Window::Properties & properties) :
 E_Window::~E_Window() = default;
 
 void E_Window::destroy() {
-	ref().reset();
+	ref() = nullptr;
 }
 
 }

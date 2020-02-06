@@ -22,7 +22,7 @@ class Namespace;
 namespace E_Util {
 namespace E_UI {
 
-class E_Window : public EScript::ReferenceObject<std::unique_ptr<Util::UI::Window>> {
+class E_Window : public EScript::ReferenceObject<Util::Reference<Util::UI::Window>> {
 	ES_PROVIDES_TYPE_NAME(Window)
 	public:
 		static EScript::Type * getTypeObject();
@@ -40,5 +40,7 @@ class E_Window : public EScript::ReferenceObject<std::unique_ptr<Util::UI::Windo
 
 }
 }
+
+ES_CONV_EOBJ_TO_OBJ(E_Util::E_UI::E_Window, Util::UI::Window*, (**eObj).get())
 
 #endif /* E_UTIL_WINDOW_H */
