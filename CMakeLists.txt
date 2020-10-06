@@ -48,11 +48,22 @@ add_library(E_Util SHARED
 	UI/E_Window.cpp
 )
 
+if(MSVC)
+	target_compile_definitions(E_Util PRIVATE "EUTILAPI=__declspec(dllexport)")
+	target_compile_definitions(E_Util INTERFACE "EUTILAPI=__declspec(dllimport)")
+else()
+	target_compile_definitions(E_Util PRIVATE "EUTILAPI=")
+	target_compile_definitions(E_Util INTERFACE "EUTILAPI=")
+endif()
+
 # Dependency to EScript
 if(NOT TARGET EScript)
 	find_package(EScript 0.6.7 REQUIRED NO_MODULE)
 endif()
 target_link_libraries(E_Util LINK_PUBLIC EScript)
+if(MSVC)
+	target_compile_definitions(E_Util PRIVATE NOMINMAX)
+endif()
 
 # Dependency to Util
 if(NOT TARGET Util)

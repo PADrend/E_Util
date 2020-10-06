@@ -17,7 +17,7 @@ class Namespace;
 }
 
 namespace E_Util {
-void init(EScript::Namespace * globals);
+EUTILAPI void init(EScript::Namespace * globals);
 }
 
 #endif // ELIBUTIL_H
