@@ -21,11 +21,11 @@ namespace E_Util{
 class E_MicroXMLReader : public EScript::ExtObject {
 		ES_PROVIDES_TYPE_NAME(MicroXMLReader)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type* getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
-		E_MicroXMLReader(EScript::Type * type=nullptr);
-		virtual ~E_MicroXMLReader();
+		EUTILAPI E_MicroXMLReader(EScript::Type * type=nullptr);
+		EUTILAPI virtual ~E_MicroXMLReader();
 };
 
 }

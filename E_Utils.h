@@ -36,7 +36,7 @@ namespace Policies{
 /*! Policy that can be used for ExtRefObjects to store the EScript attributeContainer inside of an AttributeContainer's attribute.
 	\note the Referenced object has to inherit from  AttributeContainer. */
 class StoreAttrsInAttributeProvider{
-		static EScript::AttributeContainer * _getAttributeContainer(Util::AttributeProvider * attrProvider,bool create);
+		EUTILAPI static EScript::AttributeContainer * _getAttributeContainer(Util::AttributeProvider * attrProvider,bool create);
 
 	protected:
 		template<typename attrProviderERef>
@@ -55,9 +55,9 @@ class StoreAttrsInAttributeProvider{
 /// some static Helpers
 class E_Utils {
 	public:
-		static EScript::Object * convertGenericAttributeToEScriptObject(const Util::GenericAttribute * ga, bool warn = true);
+		EUTILAPI static EScript::Object * convertGenericAttributeToEScriptObject(const Util::GenericAttribute * ga, bool warn = true);
 
-		static Util::GenericAttribute * convertEScriptObjectToGenericAttribute(EScript::ObjPtr obj);
+		EUTILAPI static Util::GenericAttribute * convertEScriptObjectToGenericAttribute(EScript::ObjPtr obj);
 
 		/**
 		 * Abstract base class for converters between GenericAttributes and EScript objects.
@@ -99,12 +99,12 @@ class E_Utils {
 		 *
 		 * @param converter New converter object.
 		 */
-		static void registerConverter(AbstractGenericAttributeConverter * converter);
+		EUTILAPI static void registerConverter(AbstractGenericAttributeConverter * converter);
 	private:
 		typedef std::list<AbstractGenericAttributeConverter *> converter_list_t;
 		static converter_list_t converters;
 
-		static const converter_list_t & getConverters();
+		EUTILAPI static const converter_list_t & getConverters();
 };
 }
 

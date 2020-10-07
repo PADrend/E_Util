@@ -24,15 +24,15 @@ namespace E_Util{
 class E_Color4ub : public EScript::ReferenceObject<Util::Color4ub> {
 		ES_PROVIDES_TYPE_NAME(Color4ub)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type* getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		template<typename...args> explicit E_Color4ub(args&&... params) :
 			ReferenceObject_t(E_Color4ub::getTypeObject(),std::forward<args>(params)...) {}
 		virtual ~E_Color4ub() {}
 
 		E_Color4ub * clone() const override		{	return new E_Color4ub(ref());	}
-		std::string toString()const override;
+		EUTILAPI std::string toString()const override;
 };
 
 /**
@@ -42,15 +42,15 @@ class E_Color4ub : public EScript::ReferenceObject<Util::Color4ub> {
 class E_Color4f : public EScript::ReferenceObject<Util::Color4f> {
 		ES_PROVIDES_TYPE_NAME(Color4f)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type* getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		template<typename...args> explicit E_Color4f(args&&... params) :
 			ReferenceObject_t(E_Color4f::getTypeObject(),std::forward<args>(params)...) {}
 		virtual ~E_Color4f() {}
 
 		E_Color4f * clone() const override		{	return new E_Color4f(ref());	}
-		std::string toString()const override;
+		EUTILAPI std::string toString()const override;
 };
 
 }
@@ -63,7 +63,7 @@ ES_CONV_OBJ_TO_EOBJ(const Util::Color4ub&, 			E_Util::E_Color4ub,		new E_Util::E
 ES_CONV_OBJ_TO_EOBJ(Util::Color4ub&&, 				E_Util::E_Color4ub,		new E_Util::E_Color4ub(obj))
 
 namespace EScript{ // automatic conversion functions
-template<> Util::Color4f convertTo<Util::Color4f>(Runtime & rt,ObjPtr obj);
-template<> Util::Color4ub convertTo<Util::Color4ub>(Runtime & rt,ObjPtr obj);
+template<> EUTILAPI Util::Color4f convertTo<Util::Color4f>(Runtime & rt,ObjPtr obj);
+template<> EUTILAPI Util::Color4ub convertTo<Util::Color4ub>(Runtime & rt,ObjPtr obj);
 }
 #endif // E_UTIL_COLOR_H

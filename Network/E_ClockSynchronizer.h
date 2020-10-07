@@ -23,10 +23,10 @@ namespace Network{
 class E_ClockSynchronizer : public EScript::ReferenceObject<Util::Network::ClockSynchronizer * > {
 		ES_PROVIDES_TYPE_NAME(ClockSynchronizer)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type* getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
-		E_ClockSynchronizer(Util::Network::ClockSynchronizer * s);
+		EUTILAPI E_ClockSynchronizer(Util::Network::ClockSynchronizer * s);
 
 		Util::Network::ClockSynchronizer * getSynchronizer()const{
 			return ref();

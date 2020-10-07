@@ -22,11 +22,11 @@ namespace E_Util {
 class E_UpdatableHeap : public EScript::ReferenceObject<std::unique_ptr<Util::UpdatableHeap<double, EScript::ObjRef>>> {
 	ES_PROVIDES_TYPE_NAME(UpdatableHeap)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
-		E_UpdatableHeap(EScript::Type * type = nullptr);
-		virtual ~E_UpdatableHeap();
+		EUTILAPI E_UpdatableHeap(EScript::Type * type = nullptr);
+		EUTILAPI virtual ~E_UpdatableHeap();
 };
 
 }

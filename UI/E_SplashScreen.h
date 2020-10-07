@@ -26,20 +26,20 @@ namespace E_UI {
 class E_SplashScreen : public EScript::ReferenceObject<std::unique_ptr<Util::UI::SplashScreen>> {
 	ES_PROVIDES_TYPE_NAME(SplashScreen)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		//! Create a new Util::UI::SplashScreen with the given title and background image.
-		E_SplashScreen(const std::string & title, const std::string & imagePath);
+		EUTILAPI E_SplashScreen(const std::string & title, const std::string & imagePath);
 
 		//! The destructor calls @a destroy().
-		virtual ~E_SplashScreen();
+		EUTILAPI virtual ~E_SplashScreen();
 
 		//! Display a message on the splash screen. Automatically checks if the splash screen pointer is valid.
-		void showMessage(const std::string & message);
+		EUTILAPI void showMessage(const std::string & message);
 
 		//! Delete the SplashScreen pointer and thereby close the splash screen.
-		void destroy();
+		EUTILAPI void destroy();
 
 	private:
 		Util::Reference<Util::Bitmap> bitmap;

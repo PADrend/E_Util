@@ -23,8 +23,8 @@ namespace E_Util{
 class E_Timer : public EScript::ReferenceObject<Util::Timer> {
 		ES_PROVIDES_TYPE_NAME(Timer)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type* getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		E_Timer() : ReferenceObject_t(Util::Timer(),getTypeObject())	{}
 		E_Timer(const Util::Timer & t) : ReferenceObject_t(Util::Timer(t),getTypeObject()) 	{}

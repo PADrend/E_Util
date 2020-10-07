@@ -25,8 +25,8 @@ namespace E_Util{
 class E_IOStream : public EScript::ReferenceObject<std::unique_ptr<std::iostream>, EScript::Policies::SameEObjects_ComparePolicy> {
 		ES_PROVIDES_TYPE_NAME(IOStream)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		template<typename ... Types>
 		explicit E_IOStream(Types && ... params) :

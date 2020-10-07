@@ -33,8 +33,8 @@ namespace Network {
 class E_TCPConnection : public EScript::ReferenceObject<Util::Reference<Util::Network::TCPConnection>>{
 		ES_PROVIDES_TYPE_NAME(TCPConnection)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		E_TCPConnection(const Util::Reference<Util::Network::TCPConnection> & _obj, EScript::Type * type = nullptr) : 
 			ReferenceObject_t(type ? type : getTypeObject(), _obj) {
@@ -50,8 +50,8 @@ class E_TCPConnection : public EScript::ReferenceObject<Util::Reference<Util::Ne
 class E_TCPServer : public EScript::ReferenceObject<std::unique_ptr<Util::Network::TCPServer>> {
 		ES_PROVIDES_TYPE_NAME(TCPServer)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		E_TCPServer(Util::Network::TCPServer * _obj, EScript::Type * type = nullptr) :
 			ReferenceObject_t(type ? type : getTypeObject(), _obj) {

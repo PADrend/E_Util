@@ -24,11 +24,11 @@ namespace Network {
 class E_Network : public EScript::Namespace{
 		ES_PROVIDES_TYPE_NAME(Network)
 	public:
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 	private:
-		E_Network();
-		virtual ~E_Network();
+		EUTILAPI E_Network();
+		EUTILAPI virtual ~E_Network();
 };
 
 }
