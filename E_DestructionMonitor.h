@@ -44,8 +44,8 @@ namespace E_Util {
 class E_DestructionMonitor : public EScript::Object {
 		ES_PROVIDES_TYPE_NAME(DestructionMonitor)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		E_DestructionMonitor() : EScript::Object(getTypeObject()) {}
 		virtual ~E_DestructionMonitor()	{}
@@ -66,15 +66,15 @@ class E_DestructionMonitor : public EScript::Object {
 		};
 		friend class DestructionMarker;
 
-		DestructionMarker * createMarker(const std::string & markerName="");
-		void extractMarkers(std::vector<std::string> & result);
+		EUTILAPI DestructionMarker * createMarker(const std::string & markerName="");
+		EUTILAPI void extractMarkers(std::vector<std::string> & result);
 
 		const std::set<DestructionMarker*> & getPendingMarkers()const		{	return pendingMarkers;	}
 		size_t getPendingMarkersCount()const								{	return pendingMarkers.size();	}
 		bool markersAvailable()const										{	return	!releasedMarkers.empty();	}
 
 	private:
-		void releaseMarker(DestructionMarker * marker);
+		EUTILAPI void releaseMarker(DestructionMarker * marker);
 
 		std::vector<std::string> releasedMarkers;
 		std::set<DestructionMarker*> pendingMarkers;

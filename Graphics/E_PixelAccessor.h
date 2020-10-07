@@ -24,12 +24,12 @@ namespace E_Util{
 class E_PixelAccessor : public EScript::ReferenceObject<Util::Reference<Util::PixelAccessor> >{
 		ES_PROVIDES_TYPE_NAME(PixelAccessor)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type* getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		template<typename...args> explicit E_PixelAccessor(args&&... params) :
 			ReferenceObject_t(E_PixelAccessor::getTypeObject(),std::forward<args>(params)...) {}
-		virtual ~E_PixelAccessor();
+		EUTILAPI virtual ~E_PixelAccessor();
 };
 }
 

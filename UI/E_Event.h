@@ -26,13 +26,13 @@ namespace E_UI {
 class E_Event : public EScript::ExtObject {
 	ES_PROVIDES_TYPE_NAME(Event)
 	public:
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static void init(EScript::Namespace & lib);
 
-		E_Event(const Util::UI::Event & event);
+		EUTILAPI E_Event(const Util::UI::Event & event);
 		virtual ~E_Event() { }
 
-		E_Event* clone()const override;
-		Util::UI::Event getEvent() const;
+		EUTILAPI E_Event* clone()const override;
+		EUTILAPI Util::UI::Event getEvent() const;
 };
 
 }

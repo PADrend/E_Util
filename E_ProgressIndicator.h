@@ -20,10 +20,10 @@ class E_ProgressIndicator : public EScript::ReferenceObject<Util::ProgressIndica
 	ES_PROVIDES_TYPE_NAME(ProgressIndicator)
 	public:
 		static EScript::Type * typeObject;
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		//! Create a new Util::ProgressIndicator with the given parameters (see Util::ProgressIndicator for a description of the parameters).
-		E_ProgressIndicator(std::string description, uint32_t totalSteps, double updateInterval);
+		EUTILAPI E_ProgressIndicator(std::string description, uint32_t totalSteps, double updateInterval);
 		virtual ~E_ProgressIndicator() {}
 };
 

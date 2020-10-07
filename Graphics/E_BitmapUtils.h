@@ -17,7 +17,7 @@
 namespace E_Util {
 namespace E_BitmapUtils{
 
-void init(EScript::Namespace & lib);
+EUTILAPI void init(EScript::Namespace & lib);
 
 }
 }

@@ -29,11 +29,11 @@ namespace Network {
 class E_UDPNetworkSocket : public EScript::ReferenceObject<std::unique_ptr<Util::Network::UDPNetworkSocket>> {
 		ES_PROVIDES_TYPE_NAME(UDPNetworkSocket)
 	public:
-		static EScript::Type* getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type* getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
-		E_UDPNetworkSocket(Util::Network::UDPNetworkSocket * obj,EScript::Type * type=nullptr);
-		virtual ~E_UDPNetworkSocket();
+		EUTILAPI E_UDPNetworkSocket(Util::Network::UDPNetworkSocket * obj,EScript::Type * type=nullptr);
+		EUTILAPI virtual ~E_UDPNetworkSocket();
 };
 
 }

@@ -31,14 +31,14 @@ namespace Network{
 class E_DataConnection : public EScript::ReferenceObject<Util::Reference<Util::Network::DataConnection> > {
 		ES_PROVIDES_TYPE_NAME(DataConnection)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
-		E_DataConnection( Util::Network::DataConnection * _obj,EScript::Type * type=nullptr);
+		EUTILAPI E_DataConnection( Util::Network::DataConnection * _obj,EScript::Type * type=nullptr);
 		E_DataConnection(E_DataConnection&) = delete;
 		virtual ~E_DataConnection() {}
 		
-		void _handleIncomingValue(Util::Network::DataConnection::channelId_t,const Util::Network::DataConnection::dataPacket_t &);
+		EUTILAPI void _handleIncomingValue(Util::Network::DataConnection::channelId_t,const Util::Network::DataConnection::dataPacket_t &);
 	private:
 		std::queue<std::pair<Util::Network::DataConnection::channelId_t,const Util::Network::DataConnection::dataPacket_t>> incomingData;
 };

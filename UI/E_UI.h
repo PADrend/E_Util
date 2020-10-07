@@ -16,7 +16,7 @@ class Namespace;
 
 namespace E_Util {
 namespace E_UI {
-void init(EScript::Namespace * parentNamespace);
+EUTILAPI void init(EScript::Namespace * parentNamespace);
 }
 }
 

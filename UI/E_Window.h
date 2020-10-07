@@ -25,17 +25,17 @@ namespace E_UI {
 class E_Window : public EScript::ReferenceObject<Util::Reference<Util::UI::Window>> {
 	ES_PROVIDES_TYPE_NAME(Window)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		//! Create a new Util::UI::Window with the given properties.
-		E_Window(const Util::UI::Window::Properties & properties);
+		EUTILAPI E_Window(const Util::UI::Window::Properties & properties);
 
 		//! The destructor calls @a destroy().
-		virtual ~E_Window();
+		EUTILAPI virtual ~E_Window();
 
 		//! Delete the Window pointer and thereby close the window.
-		void destroy();
+		EUTILAPI void destroy();
 };
 
 }

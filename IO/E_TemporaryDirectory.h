@@ -24,8 +24,8 @@ namespace E_Util{
 class E_TemporaryDirectory : public EScript::ReferenceObject<Util::TemporaryDirectory, EScript::Policies::SameEObjects_ComparePolicy> {
 		ES_PROVIDES_TYPE_NAME(TemporaryDirectory)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		template<typename ... Types>
 		explicit E_TemporaryDirectory(Types && ... params) :

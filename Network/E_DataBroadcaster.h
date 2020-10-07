@@ -31,8 +31,8 @@ namespace Network{
 class E_DataBroadcaster : public EScript::ReferenceObject<Util::Reference<Util::Network::DataBroadcaster>> {
 		ES_PROVIDES_TYPE_NAME(DataBroadcaster)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		E_DataBroadcaster(Util::Network::DataBroadcaster * _obj,EScript::Type * type=nullptr) : 
 				ReferenceObject_t(_obj, type ? type : E_DataBroadcaster::getTypeObject()) {}

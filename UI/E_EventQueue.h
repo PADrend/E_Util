@@ -28,11 +28,11 @@ namespace E_UI {
 class E_EventQueue : public EScript::ReferenceObject<Util::UI::EventQueue &, EScript::Policies::SameEObjects_ComparePolicy> {
 	ES_PROVIDES_TYPE_NAME(EventQueue)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
-		E_EventQueue(Util::UI::EventQueue & eventQueue);
-		virtual ~E_EventQueue();
+		EUTILAPI E_EventQueue(Util::UI::EventQueue & eventQueue);
+		EUTILAPI virtual ~E_EventQueue();
 };
 
 }

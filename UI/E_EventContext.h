@@ -23,8 +23,8 @@ namespace E_UI {
 class E_EventContext : public EScript::ReferenceObject<Util::UI::EventContext, EScript::Policies::SameEObjects_ComparePolicy> {
 	ES_PROVIDES_TYPE_NAME(EventContext)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		E_EventContext() : ReferenceObject_t(E_EventContext::getTypeObject()) {
 		}

@@ -25,14 +25,14 @@ namespace E_Util {
 class E_Bitmap : public EScript::ReferenceObject<Util::Reference<Util::Bitmap>> {
 	ES_PROVIDES_TYPE_NAME(Bitmap)
 	public:
-		static EScript::Type * typeObject;
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * typeObject;
+		EUTILAPI static void init(EScript::Namespace & lib);
 
-		E_Bitmap(Util::Reference<Util::Bitmap> bitmap);
-		virtual ~E_Bitmap();
+		EUTILAPI E_Bitmap(Util::Reference<Util::Bitmap> bitmap);
+		EUTILAPI virtual ~E_Bitmap();
 
-		std::string toString() const override;
-		E_Bitmap * clone() const override;
+		EUTILAPI std::string toString() const override;
+		EUTILAPI E_Bitmap * clone() const override;
 
 	// -------
 
@@ -40,7 +40,7 @@ class E_Bitmap : public EScript::ReferenceObject<Util::Reference<Util::Bitmap>> 
 		class E_PixelFormat : public EScript::ReferenceObject<Util::AttributeFormat> {
 			ES_PROVIDES_TYPE_NAME(PixelFormat)
 		public:
-			static EScript::Type * pfTypeObject;
+			EUTILAPI static EScript::Type * pfTypeObject;
 			E_PixelFormat(const Util::AttributeFormat & f) : ReferenceObject_t(f,pfTypeObject) {}
 			virtual ~E_PixelFormat() {}
 		};

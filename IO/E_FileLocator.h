@@ -24,8 +24,8 @@ namespace E_Util{
 class E_FileLocator : public EScript::ReferenceObject<Util::FileLocator, EScript::Policies::SameEObjects_ComparePolicy> {
 		ES_PROVIDES_TYPE_NAME(FileLocator)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		template<typename ... Types>
 		explicit E_FileLocator(Types && ... params) :

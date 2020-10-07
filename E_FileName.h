@@ -25,8 +25,8 @@ namespace E_Util {
 class E_FileName : public EScript::ReferenceObject<Util::FileName> {
 		ES_PROVIDES_TYPE_NAME(FileName)
 	public:
-		static EScript::Type * getTypeObject();
-		static void init(EScript::Namespace & lib);
+		EUTILAPI static EScript::Type * getTypeObject();
+		EUTILAPI static void init(EScript::Namespace & lib);
 
 		E_FileName() : ReferenceObject_t(Util::FileName(),getTypeObject()) {}
 		E_FileName(const Util::FileName & q) : ReferenceObject_t(q,getTypeObject()) {}
