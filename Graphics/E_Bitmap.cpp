@@ -33,12 +33,25 @@ void E_Bitmap::init(EScript::Namespace & lib) {
 			new Bitmap( parameter[0].to<uint32_t>(rt),parameter[1].to<uint32_t>(rt), parameter[2].to<const AttributeFormat&>(rt)))
 
 	//!	[ESMF] thisObj Bitmap.flipVertically()
-	//ES_MFUN(typeObject,Bitmap,"flipVertically",0,0,(thisObj->flipVertically(),thisEObj))
-	ES_FUNCTION(typeObject, "flipVertically", 0, 0, {
-		Bitmap & thisObj = thisEObj.to<Bitmap &>(rt);
-		thisObj.flipVertically();
-		return thisEObj;
-	})
+	ES_MFUN(typeObject, Bitmap, "flipVertically", 0, 0, (thisObj->flipVertically(),thisEObj))
+
+	//!	[ESMF] Number Bitmap.getWidth()
+	ES_MFUN(typeObject, const Bitmap, "getWidth", 0, 0, thisObj->getWidth())
+
+	//!	[ESMF] Number Bitmap.getHeight()
+	ES_MFUN(typeObject, const Bitmap, "getHeight", 0, 0, thisObj->getHeight())
+
+	//!	[ESMF] Number Bitmap.getDataSize()
+	ES_MFUN(typeObject, const Bitmap, "getDataSize", 0, 0, static_cast<uint32_t>(thisObj->getDataSize()))
+
+	//!	[ESMF] Number Bitmap.getChannelCount()
+	ES_MFUN(typeObject, const Bitmap, "getChannelCount", 0, 0, thisObj->getPixelFormat().getComponentCount())
+
+	//!	[ESMF] TypeConstant Bitmap.getChannelType()
+	ES_MFUN(typeObject, const Bitmap, "getChannelType", 0, 0, static_cast<uint32_t>(thisObj->getPixelFormat().getDataType()))
+
+	//!	[ESMF] Number Bitmap.getBytesPerPixel()
+	ES_MFUN(typeObject, const Bitmap, "getBytesPerPixel", 0, 0, static_cast<uint32_t>(thisObj->getPixelFormat().getDataSize()))
 
 	/// E_PixelFormat ----|> Object
 	E_PixelFormat::pfTypeObject = new EScript::Type(Object::getTypeObject());
@@ -71,7 +84,7 @@ E_Bitmap::~E_Bitmap() {
 std::string E_Bitmap::toString() const {
 	std::stringstream s;
 	auto b = ref();
-	s << "Bitmap(width=" << b->getWidth() << ", height=" << b->getHeight() << ", bytes=" << b->getPixelFormat().getBytesPerPixel()<<")" ; // \todo add format<< ", reverse=" << b->getReverseBytes()
+	s << "Bitmap(width=" << b->getWidth() << ", height=" << b->getHeight() << ", bytes=" << b->getPixelFormat().getDataSize()<<")" ; // \todo add format<< ", reverse=" << b->getReverseBytes()
 //			<< ")";
 	return s.str();
 }

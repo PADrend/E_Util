@@ -49,6 +49,7 @@ class E_Bitmap : public EScript::ReferenceObject<Util::Reference<Util::Bitmap>> 
 }
 
 ES_CONV_EOBJ_TO_OBJ(E_Util::E_Bitmap,					Util::Reference<Util::Bitmap>,		**eObj)
+ES_CONV_EOBJ_TO_OBJ(E_Util::E_Bitmap,					Util::Bitmap *,						(**eObj).get())
 ES_CONV_EOBJ_TO_OBJ(E_Util::E_Bitmap,					Util::Bitmap &,						*(**eObj).get())
 ES_CONV_EOBJ_TO_OBJ(E_Util::E_Bitmap::E_PixelFormat,	Util::AttributeFormat &,				**eObj)
 ES_CONV_OBJ_TO_EOBJ(Util::Reference<Util::Bitmap>,		E_Util::E_Bitmap,					new E_Util::E_Bitmap(obj))
