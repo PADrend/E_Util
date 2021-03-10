@@ -81,7 +81,7 @@ void E_UpdatableHeap::init(EScript::Namespace & lib) {
 
 	//! [ESMF] Number UpdatableHeap.size()
 	ES_MFUN(typeObject, const E_UpdatableHeap, "size", 0, 0, 
-				 EScript::Number::create((**thisObj)->size()))
+				 EScript::Number::create(static_cast<double>((**thisObj)->size())))
 }
 
 E_UpdatableHeap::E_UpdatableHeap(EScript::Type * type) :

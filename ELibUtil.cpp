@@ -63,7 +63,7 @@ static double readNumber_SwitchEndianness(const char* source){
 	char* target = reinterpret_cast<char*>(&number)+sizeof(T)-1;
 	for(uint_fast8_t i=0;i<sizeof(T); ++i, ++source, --target)
 		*target = *source;
-	return number;
+	return static_cast<double>(number);
 }
 static double readNumber(const Util::TypeConstant type, const std::string& s, uint32_t index){
 	if( index + Util::getNumBytes(type)>s.size() )
@@ -198,7 +198,7 @@ void init(EScript::Namespace * globals) {
 	})
 
 	//! [ESF] number Util.fileSize( path  );
-	ES_FUN(lib,"fileSize",1,1,Number::create(FileUtils::fileSize(FileName(parameter[0].toString()))))
+	ES_FUN(lib,"fileSize",1,1,Number::create(static_cast<double>(FileUtils::fileSize(FileName(parameter[0].toString())))))
 
 	//! [ESF] Void Util.flush(String fileSystem)
 	ES_FUN(lib, "flush", 1, 1, (FileUtils::flush(FileName(parameter[0].toString())), EScript::create(nullptr)))
@@ -286,13 +286,13 @@ void init(EScript::Namespace * globals) {
 	ES_FUN(lib,"outputProcessMemory", 0, 0, (Util::Utils::outputProcessMemory(), EScript::create(nullptr)))
 
 	//! [ESF] Number Util.getResidentSetMemorySize()
-	ES_FUN(lib, "getResidentSetMemorySize", 0, 0, Number::create(Util::Utils::getResidentSetMemorySize()))
+	ES_FUN(lib, "getResidentSetMemorySize", 0, 0, Number::create(static_cast<double>(Util::Utils::getResidentSetMemorySize())))
 
 	//! [ESF] Number Util.getVirtualMemorySize()
-	ES_FUN(lib, "getVirtualMemorySize", 0, 0, Number::create(Util::Utils::getVirtualMemorySize()))
+	ES_FUN(lib, "getVirtualMemorySize", 0, 0, Number::create(static_cast<double>(Util::Utils::getVirtualMemorySize())))
 
 	//! [ESF] Number Util.getAllocatedMemorySize()
-	ES_FUN(lib, "getAllocatedMemorySize", 0, 0, Number::create(Util::Utils::getAllocatedMemorySize()))
+	ES_FUN(lib, "getAllocatedMemorySize", 0, 0, Number::create(static_cast<double>(Util::Utils::getAllocatedMemorySize())))
 
 	//! [ESF] Number Util.getCPUUsage(Number)
 	ES_FUN(lib, "getCPUUsage", 1, 1, Number::create(Util::Utils::getCPUUsage(parameter[0].to<uint32_t>(rt))))

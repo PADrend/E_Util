@@ -55,7 +55,7 @@ void E_UDPNetworkSocket::init(EScript::Namespace & lib) {
 		ExtObject * o=new ExtObject();
 
 		o->setAttribute("data",String::create(p->getString()));
-		o->setAttribute("dataSize",Number::create(p->packetData.size()));
+		o->setAttribute("dataSize",Number::create(static_cast<double>(p->packetData.size())));
 		o->setAttribute("host",String::create(p->source.getHostAsString()));
 		o->setAttribute("port",Number::create(p->source.getPort()));
 		return o;

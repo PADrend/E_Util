@@ -30,7 +30,7 @@ void E_EventQueue::init(EScript::Namespace & lib) {
 	
 	//! [ESMF] Number EventQueue.getNumEventsAvailable()
 	ES_MFUN(typeObject, const E_EventQueue, "getNumEventsAvailable", 0, 0, 
-				 EScript::Number::create((**thisObj).getNumEventsAvailable()))
+				 EScript::Number::create(static_cast<double>((**thisObj).getNumEventsAvailable())))
 
 	//! [ESMF] Event EventQueue.peekEvent()
 	ES_MFUN(typeObject, const E_EventQueue, "peekEvent", 0, 0, new E_Event((**thisObj).peekEvent()))

@@ -56,7 +56,7 @@ void E_DestructionMonitor::init(EScript::Namespace & lib) {
 	})
 
 	//! [ESMF] Number DestructionMonitor.getPendingMarkersCount()
-	ES_MFUN(typeObject,const E_DestructionMonitor,"getPendingMarkersCount",0,0,Number::create(thisObj->getPendingMarkersCount()))
+	ES_MFUN(typeObject,const E_DestructionMonitor,"getPendingMarkersCount",0,0,Number::create(static_cast<double>(thisObj->getPendingMarkersCount())))
 
 	//! [ESMF] Bool DestructionMonitor.markersAvailable()
 	ES_MFUN(typeObject,const E_DestructionMonitor,"markersAvailable",0,0,Bool::create(thisObj->markersAvailable()))
