@@ -192,6 +192,7 @@ E_Event::E_Event(const Util::UI::Event & event) : EScript::ExtObject() {
 		case Util::UI::EVENT_RESIZE:
 			setAttribute("width", EScript::create(event.resize.width));
 			setAttribute("height", EScript::create(event.resize.height));
+			setAttribute("contentScale", EScript::create(event.resize.contentScale));
 			break;
 		case Util::UI::EVENT_KEYBOARD:
 			setAttribute("str", EScript::create(event.keyboard.str));
@@ -239,6 +240,7 @@ Util::UI::Event E_Event::getEvent() const {
 		case Util::UI::EVENT_RESIZE:
 			event.resize.width = getAttribute("width").getValue()->toInt();
 			event.resize.height = getAttribute("height").getValue()->toInt();
+			event.resize.contentScale = getAttribute("contentScale").getValue()->toFloat();
 			break;
 		case Util::UI::EVENT_KEYBOARD: {
 			const std::string str = getAttribute("str").getValue()->toString();

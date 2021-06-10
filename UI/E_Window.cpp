@@ -44,6 +44,7 @@ void E_Window::init(EScript::Namespace & lib) {
 	static const EScript::StringId ATTR_shareContext("shareContext");
 	static const EScript::StringId ATTR_contextVersionMajor("contextVersionMajor");
 	static const EScript::StringId ATTR_contextVersionMinor("contextVersionMinor");
+	static const EScript::StringId ATTR_monitor("monitor");
 
 		
 	//!(static) [ESM] ExtObject Window.createPropertyObject()
@@ -67,6 +68,7 @@ void E_Window::init(EScript::Namespace & lib) {
 		eProperties->setAttribute(ATTR_shareContext,EScript::Bool::create(properties.shareContext));
 		eProperties->setAttribute(ATTR_contextVersionMajor,EScript::Number::create(properties.contextVersionMajor));
 		eProperties->setAttribute(ATTR_contextVersionMinor,EScript::Number::create(properties.contextVersionMinor));
+		eProperties->setAttribute(ATTR_monitor,EScript::Number::create(properties.monitor));
 		return eProperties.detachAndDecrease();
 	})
 
@@ -108,6 +110,8 @@ void E_Window::init(EScript::Namespace & lib) {
 			properties.contextVersionMajor = attr->toUInt();
 		if( (attr = eProperties->getAttribute(ATTR_contextVersionMinor).getValue()) != nullptr)
 			properties.contextVersionMinor = attr->toUInt();
+		if( (attr = eProperties->getAttribute(ATTR_monitor).getValue()) != nullptr)
+			properties.monitor = attr->toInt();
 		return new E_Window(properties);
 	})
 
@@ -142,6 +146,15 @@ void E_Window::init(EScript::Namespace & lib) {
 				 
 	//! [ESMF] thisObj Window.makeCurrent()
 	ES_MFUN(typeObject, E_Window, "makeCurrent", 0, 0, ((**thisObj)->makeCurrent(),thisEObj))
+
+	//! [ESMF] Number Window.getWidth()
+	ES_MFUN(typeObject, E_Window, "getWidth", 0, 0, (**thisObj)->getWidth())
+
+	//! [ESMF] Number Window.getHeight()
+	ES_MFUN(typeObject, E_Window, "getHeight", 0, 0, (**thisObj)->getHeight())
+
+	//! [ESMF] Number Window.getContentScale()
+	ES_MFUN(typeObject, E_Window, "getContentScale", 0, 0, (**thisObj)->getContentScale())
 }
 
 E_Window::E_Window(const Util::UI::Window::Properties & properties) :
