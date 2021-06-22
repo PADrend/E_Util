@@ -24,11 +24,14 @@ using namespace Util;
 
 //!	initMembers
 void init(EScript::Namespace & lib) {
-	//! BitmapUtil.convertBitmap(Bitmap source,AttributeFormat format)s
+	//! BitmapUtil.convertBitmap(Bitmap source,AttributeFormat format)
 	ES_FUN(&lib,"convertBitmap",2,2,
 			EScript::create(BitmapUtils::convertBitmap(
 				parameter[0].to<Bitmap &>(rt),
 				parameter[1].to<const AttributeFormat&>(rt))))
+
+	//! BitmapUtil.expandChannels(Bitmap source, [Number channels=4])
+	ES_FUN(&lib,"expandChannels",1,2, EScript::create(BitmapUtils::expandChannels(parameter[0].to<Bitmap &>(rt), parameter[1].toUInt(4))))
 
 	//! void BitmapUtil._mulScalar(Bitmap source,value)
 	ES_FUNCTION(&lib,"_mulScalar",2,2,{
