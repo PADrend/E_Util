@@ -110,7 +110,7 @@ class E_Utils {
 
 //! Macro to simplify bindings for getter/setter methods
 #define ES_MGETSET(eclass, type, var)\
-  ES_MFUN(typeObject,const eclass,"get" #var, 0, 0, thisObj->get##var())\
+  ES_MFUN(typeObject,const eclass,"get" #var, 0, 0, EScript::create(thisObj->get##var()))\
   ES_MFUN(typeObject,eclass,"set" #var,1,1, (thisObj->set##var(parameter[0].to<type>(rt)),thisEObj) )\
 	
 #endif // E_UTILS_H
